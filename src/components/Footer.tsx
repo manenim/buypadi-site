@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { ShieldCheck, Mail, Phone, MapPin } from "lucide-react";
 
 const WHATSAPP_URL =
-  "https://wa.me/08026100848?text=Hi%20BuyPadi!%20I%20want%20to%20try%20your%20verification%20service.%20Can%20you%20help%20me%20get%20started?";
+  "https://wa.me/+2348026100848?text=Hi%20BuyPadi!%20I%20want%20to%20try%20your%20verification%20service.%20Can%20you%20help%20me%20get%20started?";
 
 const footerLinks = {
   company: [
