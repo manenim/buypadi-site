@@ -3,7 +3,8 @@
 import { motion } from "framer-motion";
 import { ShieldCheck, Mail, Phone, MapPin } from "lucide-react";
 
-const WHATSAPP_URL = "https://wa.me/234800BUYPADI";
+const WHATSAPP_URL =
+  "https://wa.me/08026100848?text=Hi%20BuyPadi!%20I%20want%20to%20try%20your%20verification%20service.%20Can%20you%20help%20me%20get%20started?";
 
 const footerLinks = {
   company: [
@@ -47,8 +48,8 @@ export default function Footer() {
               Ready to Buy Without the Risk?
             </h3>
             <p className="mx-auto mb-8 max-w-xl text-base text-white/80">
-              Send us the item you found online and let our scouts verify it for you.
-              It&apos;s fast, affordable, and 100% transparent.
+              Send us the item you found online and let our scouts verify it for
+              you. It&apos;s fast, affordable, and 100% transparent.
             </p>
             <motion.a
               href={WHATSAPP_URL}
@@ -80,8 +81,8 @@ export default function Footer() {
               </span>
             </div>
             <p className="mb-6 text-sm leading-relaxed text-white/60">
-              Nigeria&apos;s trusted inspection and verification service for online
-              marketplace transactions.
+              Nigeria&apos;s trusted inspection and verification service for
+              online marketplace transactions.
             </p>
             <div className="space-y-2">
               <a

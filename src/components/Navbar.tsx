@@ -11,7 +11,8 @@ const navLinks = [
   { label: "Trust", href: "#trust" },
 ];
 
-const WHATSAPP_URL = "https://wa.me/234800BUYPADI";
+const WHATSAPP_URL =
+  "https://wa.me/08026100848?text=Hi%20BuyPadi!%20I%20want%20to%20try%20your%20verification%20service.%20Can%20you%20help%20me%20get%20started?";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
