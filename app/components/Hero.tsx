@@ -7,7 +7,7 @@ export default function Hero() {
       {/* ── Dark-green hero CARD — matches max-w-7xl of other sections ── */}
       <div
         className="relative bg-primary rounded-[1.875rem] overflow-visible
-                   w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-14 flex flex-col items-center justify-center pb-0
+                   w-full max-w-384 mx-auto px-6 sm:px-10 lg:px-14 flex flex-col items-center justify-center pb-0
                    min-h-[26rem] lg:min-h-[34rem] my-auto py-20 lg:py-0"
       >
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-36 items-center">

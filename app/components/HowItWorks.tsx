@@ -31,8 +31,9 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <section id="how-it-works" className="bg-primary py-20 px-6 lg:px-12">
-      <div className="max-w-7xl mx-auto">
+    <section id="how-it-works" className="bg-surface px-4 sm:px-6 lg:px-12 py-6">
+      {/* Rounded dark-green card — same max-width as all other content sections */}
+      <div className="max-w-384 mx-auto bg-primary rounded-3xl overflow-hidden px-6 lg:px-14 py-20">
         {/* Heading */}
         <div className="text-center mb-14">
           <h2 className="font-display text-4xl lg:text-[48px] font-extrabold text-white mb-4">
@@ -50,23 +51,19 @@ export default function HowItWorks() {
           {steps.map((step) => (
             <div
               key={step.number}
-              className={`rounded-2xl p-8 flex flex-col gap-4 ${
+              className={`rounded-3xl p-8 flex flex-col gap-4 border-2 ${
                 step.accent
-                  ? "bg-lime text-primary"
-                  : "bg-surface-alt text-primary"
+                  ? "bg-lime border-white"
+                  : "bg-surface-alt border-lime"
               }`}
             >
-              <span
-                className={`font-display text-6xl font-black leading-none ${
-                  step.accent ? "text-primary" : "text-lime"
-                }`}
-              >
+              <span className="font-display text-6xl font-black leading-none text-[rgba(34,92,162,0.1)]">
                 {step.number}
               </span>
-              <h3 className="font-display text-2xl font-extrabold">
+              <h3 className="font-display text-2xl font-extrabold text-primary">
                 {step.title}
               </h3>
-              <p className="text-sm leading-relaxed opacity-80">
+              <p className={`text-sm leading-relaxed ${step.accent ? "text-white/90" : "text-copy"}`}>
                 {step.description}
               </p>
             </div>

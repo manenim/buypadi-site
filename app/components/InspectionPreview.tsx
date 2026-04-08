@@ -15,7 +15,7 @@ export default function InspectionPreview() {
      */
     <div className="relative">
       <section className="bg-white py-20 px-6 lg:px-12 relative z-10">
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+        <div className="max-w-384 mx-auto grid lg:grid-cols-2 gap-16 items-center">
           {/* Left: Text + checklist */}
           <div className="flex flex-col gap-6">
             <h2 className="font-display text-3xl lg:text-[36px] font-extrabold text-primary leading-tight">
@@ -73,7 +73,7 @@ export default function InspectionPreview() {
       {/* Scooter rider — absolute, decorative, low z-index, spans the bottom of this
           section and the top of the Key Benefits section below */}
       <div
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 z-0
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 z-20
                    w-[340px] lg:w-[480px] pointer-events-none select-none"
       >
         <Image

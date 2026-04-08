@@ -1,9 +1,22 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default function FinalCTA() {
   return (
-    <section className="bg-surface px-6 lg:px-12 pb-20">
-      <div className="max-w-5xl mx-auto bg-primary rounded-3xl px-8 lg:px-16 py-16 lg:py-20 relative overflow-hidden">
+    <section className="bg-surface px-6 lg:px-12 pb-20 relative overflow-hidden">
+      {/* Delivery man — behind the CTA card, left-aligned with content sections */}
+      <div className="absolute inset-y-0 right-6 lg:right-12 w-[45%] max-w-xl flex items-end pointer-events-none select-none z-0">
+        <Image
+          src="/assets/delivery-man.png"
+          alt=""
+          aria-hidden="true"
+          width={900}
+          height={675}
+          className="w-full h-auto object-contain object-bottom"
+        />
+      </div>
+
+      <div className="max-w-350 mx-auto bg-primary rounded-3xl px-8 lg:px-16 py-16 lg:py-20 relative z-10 overflow-hidden">
         {/* Decorative circles */}
         <div className="absolute top-0 right-0 w-64 h-64 rounded-full bg-lime/10 translate-x-1/3 -translate-y-1/3 pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-48 h-48 rounded-full bg-lime/10 -translate-x-1/3 translate-y-1/3 pointer-events-none" />

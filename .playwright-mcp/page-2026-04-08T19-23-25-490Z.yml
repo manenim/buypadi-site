@@ -1,0 +1,164 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - generic [ref=e4]:
+      - link "BuyPadi logo" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img "BuyPadi logo" [ref=e6]
+      - navigation [ref=e7]:
+        - link "Marketplace" [ref=e8] [cursor=pointer]:
+          - /url: "#how-it-works"
+        - link "Inspections" [ref=e9] [cursor=pointer]:
+          - /url: "#how-it-works"
+        - link "Pricing" [ref=e10] [cursor=pointer]:
+          - /url: "#"
+        - link "About" [ref=e11] [cursor=pointer]:
+          - /url: "#"
+      - generic [ref=e12]:
+        - link "Login" [ref=e13] [cursor=pointer]:
+          - /url: "#"
+        - link "Get Started" [ref=e14] [cursor=pointer]:
+          - /url: "#"
+    - generic [ref=e17]:
+      - generic [ref=e18]:
+        - generic [ref=e19]: Verified Logistics
+        - heading "Buy From Anywhere. We Deliver Safely to You!" [level=1] [ref=e20]:
+          - text: Buy From Anywhere.
+          - text: We Deliver Safely to You!
+        - paragraph [ref=e21]: We inspect before you pay. Your eyes on the ground for every purchase, everywhere in Nigeria.
+        - generic [ref=e22]:
+          - link "Request Inspection" [ref=e23] [cursor=pointer]:
+            - /url: "#"
+          - link "How It Works" [ref=e24] [cursor=pointer]:
+            - /url: "#how-it-works"
+      - generic [ref=e25]:
+        - img "BuyPadi verified delivery professional" [ref=e27]
+        - img "Jiji.ng" [ref=e29]
+        - img "Instagram" [ref=e31]
+        - img "Online store" [ref=e33]
+        - generic [ref=e34]:
+          - img [ref=e36]
+          - generic [ref=e39]:
+            - paragraph [ref=e40]: 100% Inspected
+            - paragraph [ref=e41]: Lagos, 12 mins ago
+    - generic [ref=e44]:
+      - generic [ref=e45]:
+        - img [ref=e47]
+        - heading "Verified Inspectors" [level=3] [ref=e50]
+        - paragraph [ref=e51]: Background-checked professionals across all 36 states.
+      - generic [ref=e52]:
+        - img [ref=e54]
+        - heading "Real Photo & Video Proof" [level=3] [ref=e60]
+        - paragraph [ref=e61]: Live high-definition media captured directly on-site.
+      - generic [ref=e62]:
+        - img [ref=e64]
+        - heading "Secure Delivery" [level=3] [ref=e70]
+        - paragraph [ref=e71]: End-to-end custody from seller to your doorstep.
+    - generic [ref=e73]:
+      - generic [ref=e74]:
+        - heading "Inspect. Validate. Deliver" [level=2] [ref=e75]
+        - paragraph [ref=e76]: Your journey to a risk-free purchase in four steps.
+      - generic [ref=e77]:
+        - generic [ref=e78]:
+          - generic [ref=e79]: "01"
+          - heading "Request" [level=3] [ref=e80]
+          - paragraph [ref=e81]: Provide item details and location. We match you with an expert nearby.
+        - generic [ref=e82]:
+          - generic [ref=e83]: "02"
+          - heading "Inspect" [level=3] [ref=e84]
+          - paragraph [ref=e85]: Our pro visits the seller to verify condition, serials, and authenticity.
+        - generic [ref=e86]:
+          - generic [ref=e87]: "03"
+          - heading "Review" [level=3] [ref=e88]
+          - paragraph [ref=e89]: Receive a detailed report with video proof and an expert score.
+        - generic [ref=e90]:
+          - generic [ref=e91]: "04"
+          - heading "Deliver" [level=3] [ref=e92]
+          - paragraph [ref=e93]: If you're happy, we handle the payment and logistics for you.
+    - generic [ref=e94]:
+      - generic [ref=e96]:
+        - generic [ref=e97]:
+          - heading "See everything without being there." [level=2] [ref=e98]:
+            - text: See everything
+            - text: without being there.
+          - paragraph [ref=e99]: Our digital reports aren't just PDF files. They are live, interactive documents showing the true health of your prospective purchase.
+          - list [ref=e100]:
+            - listitem [ref=e101]:
+              - img [ref=e103]
+              - generic [ref=e105]: Frame & Engine Diagnostics
+            - listitem [ref=e106]:
+              - img [ref=e108]
+              - generic [ref=e110]: Live Odometer Verification
+            - listitem [ref=e111]:
+              - img [ref=e113]
+              - generic [ref=e115]: Market Value Assessment
+        - img "BuyPadi inspection report showing 2018 Toyota Camry XSE — Passed, 8.8/10 Padi Score" [ref=e117]
+      - generic:
+        - img
+    - generic [ref=e119]:
+      - heading "Built for Total Peace of Mind." [level=2] [ref=e121]:
+        - text: Built for Total Peace
+        - text: of Mind.
+      - generic [ref=e122]:
+        - generic [ref=e123]:
+          - img [ref=e125]
+          - heading "Avoid Scams" [level=3] [ref=e128]
+          - paragraph [ref=e129]: Never send money to a stranger again. We confirm the existence and condition of the item before you part with a single Naira.
+        - generic [ref=e130]:
+          - generic [ref=e131]: 36+
+          - paragraph [ref=e132]: States Covered starting from FCT
+        - generic [ref=e133]:
+          - heading "Buy From Anywhere" [level=3] [ref=e134]
+          - paragraph [ref=e135]: Shop in Kano while sitting in Lagos. Our logistics bridge the gap safely.
+        - generic [ref=e136]:
+          - heading "Independent Inspection" [level=3] [ref=e137]:
+            - text: Independent
+            - text: Inspection
+          - paragraph [ref=e138]: We don't work for the seller. We work for you. Unbiased, clinical, and thorough reports every time.
+    - generic [ref=e141]:
+      - heading "Ready for a safer way to buy?" [level=2] [ref=e142]
+      - paragraph [ref=e143]: Join thousands of Nigerians using BuyPadi to secure their high-value purchases today.
+      - generic [ref=e144]:
+        - link "Start Your First Inspection" [ref=e145] [cursor=pointer]:
+          - /url: "#"
+        - link "Contact Sales" [ref=e146] [cursor=pointer]:
+          - /url: "#"
+    - generic [ref=e149]:
+      - generic [ref=e150]:
+        - generic [ref=e151]: BuyPadi.ng
+        - paragraph [ref=e152]: "© 2024 BuyPadi.ng. Secure Asset Custodianship. Nigeria's #1 verification and inspection partner."
+      - generic [ref=e153]:
+        - heading "Company" [level=5] [ref=e154]
+        - list [ref=e155]:
+          - listitem [ref=e156]:
+            - link "About Us" [ref=e157] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e158]:
+            - link "Pricing" [ref=e159] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e160]:
+            - link "Contact Us" [ref=e161] [cursor=pointer]:
+              - /url: "#"
+      - generic [ref=e162]:
+        - heading "Legal" [level=5] [ref=e163]
+        - list [ref=e164]:
+          - listitem [ref=e165]:
+            - link "Privacy Policy" [ref=e166] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e167]:
+            - link "Terms of Service" [ref=e168] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e169]:
+            - link "Cookie Policy" [ref=e170] [cursor=pointer]:
+              - /url: "#"
+      - generic [ref=e171]:
+        - heading "Connect" [level=5] [ref=e172]
+        - generic [ref=e173]:
+          - link "Follow on X" [ref=e174] [cursor=pointer]:
+            - /url: "#"
+            - img [ref=e175]
+          - link "Follow on Instagram" [ref=e177] [cursor=pointer]:
+            - /url: "#"
+            - img [ref=e178]
+        - paragraph [ref=e180]: "Headquarters: Victoria Island, Lagos."
+  - button "Open Next.js Dev Tools" [ref=e186] [cursor=pointer]:
+    - img [ref=e187]
