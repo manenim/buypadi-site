@@ -23,18 +23,14 @@ export default function Hero() {
             </span>
 
             {/* Headline */}
-            <h1
-              className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold leading-[1.15] text-white"
-            >
+            <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold leading-[1.15] text-white">
               Buy From <span className="text-lime italic">Anywhere.</span>
               <br />
               We Deliver <span className="text-lime">Safely</span> to You!
             </h1>
 
             {/* Subtext */}
-            <p
-              className="text-sm sm:text-base lg:text-[1.0625rem] font-medium text-white/60 max-w-sm leading-relaxed"
-            >
+            <p className="text-sm sm:text-base lg:text-[1.0625rem] font-medium text-white/60 max-w-sm leading-relaxed">
               We inspect before you pay. Your eyes on the ground for every
               purchase, everywhere in Nigeria.
             </p>
@@ -64,7 +60,7 @@ export default function Hero() {
           <div className="relative flex justify-center lg:justify-end self-end flex-shrink-0 w-full lg:w-auto">
             {/* White rounded image card */}
             <div
-              className="relative rounded-[3rem] overflow-hidden bg-white
+              className="relative rounded-t-[3rem] md:rounded-b-[3rem] overflow-hidden bg-white
                          w-full max-w-[16rem] sm:max-w-[20rem] lg:w-[22rem]
                          h-[16rem] sm:h-[21rem] lg:h-[26rem]"
             >
@@ -127,7 +123,11 @@ export default function Hero() {
                          w-max"
             >
               <div className="w-10 h-10 rounded-2xl bg-lime flex items-center justify-center shrink-0">
-                <svg className="w-5 h-5 text-primary" fill="none" viewBox="0 0 20 24">
+                <svg
+                  className="w-5 h-5 text-primary"
+                  fill="none"
+                  viewBox="0 0 20 24"
+                >
                   <path
                     d="M10 1L19 5.5V12C19 17.2 15.1 22 10 23C4.9 22 1 17.2 1 12V5.5L10 1Z"
                     fill="currentColor"
