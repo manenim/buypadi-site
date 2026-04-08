@@ -35,7 +35,7 @@ export default function FinalCTA() {
               href="#"
               className="font-sans inline-flex items-center gap-2 bg-lime text-primary font-semibold text-lg px-8 py-4 rounded-full hover:bg-lime-dark transition-colors shadow-lg"
             >
-              Start Your First Inspection
+              Order Inspection
             </Link>
             <Link
               href="#"
