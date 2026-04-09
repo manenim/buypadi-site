@@ -8,9 +8,9 @@ export default function Hero() {
       <div
         className="relative bg-primary rounded-[1.875rem] overflow-visible
                    w-full max-w-384 mx-auto px-6 sm:px-10 lg:px-14 flex flex-col items-center justify-center pb-0
-                   min-h-[26rem] lg:min-h-[34rem] my-auto py-20 lg:py-0"
+                   min-h-[26rem] md:min-h-128 lg:min-h-136 my-auto py-20 md:py-10 lg:py-0"
       >
-        <div className="flex flex-col lg:flex-row gap-8 lg:gap-36 items-center">
+        <div className="flex flex-col md:flex-row gap-8 md:gap-10 lg:gap-36 items-center">
           {/* ── LEFT: text ── */}
           <div className="flex-1 flex flex-col gap-4 sm:gap-5 pb-8 lg:pb-16 z-10 relative w-full">
             {/* Badge */}
@@ -57,12 +57,12 @@ export default function Hero() {
           </div>
 
           {/* ── RIGHT: image + overlays ── */}
-          <div className="relative flex justify-center lg:justify-end self-end flex-shrink-0 w-full lg:w-auto">
+          <div className="relative flex justify-center md:justify-end self-end flex-shrink-0 w-full md:w-auto">
             {/* White rounded image card */}
             <div
               className="relative rounded-t-[3rem] md:rounded-b-[3rem] overflow-hidden bg-white
-                         w-full max-w-[16rem] sm:max-w-[20rem] lg:w-[22rem]
-                         h-[16rem] sm:h-[21rem] lg:h-[26rem]"
+                         w-full max-w-[16rem] sm:max-w-[80%] md:w-80 lg:w-88
+                         h-[16rem] sm:h-[21rem] md:h-96 lg:h-104"
             >
               <Image
                 src="/assets/hero-bg.png"

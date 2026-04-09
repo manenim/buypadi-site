@@ -1,6 +1,5 @@
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
-import Link from "next/link";
 
 export const metadata = {
   title: "Request Inspection — BuyPadi",
@@ -19,8 +18,8 @@ function SectionHeader({
 }) {
   return (
     <div className="flex items-start gap-4 pb-6 border-b border-surface-alt mb-6">
-      <div className="w-10 h-10 rounded-xl bg-lime flex items-center justify-center shrink-0 text-white font-display font-black text-sm">
-        {String(step).padStart(2, "0")}
+      <div className="w-10 h-10 rounded-full bg-lime flex items-center justify-center shrink-0 text-white font-display font-black text-sm">
+        {step}
       </div>
       <div>
         <h2 className="font-display text-lg font-bold text-heading">{title}</h2>
@@ -47,95 +46,88 @@ export default function RequestPage() {
       <Navbar />
 
       {/* ── Page header ── */}
-      <div className="bg-primary px-6 lg:px-12 py-14 lg:py-20">
-        <div className="max-w-7xl mx-auto flex flex-col gap-4">
+      <div className="bg-primary px-6 lg:px-12 py-12 lg:py-16">
+        <div className="max-w-3xl mx-auto flex flex-col gap-3">
           <span className="inline-flex items-center w-fit bg-lime-bright text-primary text-[0.6875rem] font-display font-bold uppercase tracking-widest rounded-full px-4 py-1.5">
             Certified Logistics
           </span>
-          <h1 className="font-display text-4xl lg:text-5xl font-black text-white leading-tight">
+          <h1 className="font-display text-4xl lg:text-[52px] font-black text-white leading-tight">
             Request Inspection
           </h1>
-          <p className="text-white/60 text-base lg:text-lg max-w-xl leading-relaxed">
+          <p className="text-white/60 text-base lg:text-lg max-w-md leading-relaxed">
             Complete the details below to secure a professional physical
-            inspection before you make any payment.
+            inspection of your intended purchase. We ensure what you see is what
+            you get.
           </p>
         </div>
       </div>
 
       {/* ── Form body ── */}
-      <main className="flex-1 px-4 sm:px-6 lg:px-12 py-12">
-        <div className="max-w-7xl mx-auto">
-          <form className="flex flex-col gap-6">
+      <main className="flex-1 px-4 sm:px-6 lg:px-12 py-10">
+        <div className="max-w-3xl mx-auto">
+          <form className="flex flex-col gap-5">
 
             {/* ─ Section 1: Item Information ─ */}
-            <div className="bg-white rounded-[1.875rem] px-8 lg:px-10 py-8">
+            <div className="bg-white rounded-[1.875rem] px-8 py-8">
               <SectionHeader
                 step={1}
                 title="Item Information"
-                subtitle="Tell us about the item you want inspected."
+                subtitle="Tell us about the item (product link or item details)."
               />
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                <div className="sm:col-span-2">
+              <div className="flex flex-col gap-5">
+                <div>
                   <Label>Product Link</Label>
                   <input
                     type="url"
-                    placeholder="https://jiji.ng/listing/..."
+                    placeholder="Paste link (e.g. Jiji, FB, IG or text)"
                     className={inputClass}
                   />
-                  <p className="text-xs text-muted mt-1.5">
-                    Paste the listing URL from Jiji, Facebook, Instagram, etc.
-                  </p>
                 </div>
                 <div>
                   <Label>Item Price (₦)</Label>
                   <input
                     type="number"
-                    placeholder="e.g. 250000"
+                    placeholder="Enter amount (₦)"
                     className={inputClass}
                   />
                 </div>
                 <div>
-                  <Label>Item Category</Label>
-                  <select className={inputClass + " cursor-pointer"}>
-                    <option value="">Select a category</option>
-                    <option>Vehicles</option>
-                    <option>Electronics</option>
-                    <option>Fashion & Accessories</option>
-                    <option>Real Estate</option>
-                    <option>Other</option>
-                  </select>
+                  <Label>Optional Comments</Label>
+                  <textarea
+                    rows={3}
+                    placeholder="Any specific things you want us to check..."
+                    className={inputClass + " resize-none"}
+                  />
                 </div>
-                <div className="sm:col-span-2">
+                <div>
                   <Label>Upload Screenshot (optional)</Label>
-                  <div className="w-full bg-surface-alt border-2 border-dashed border-subtle/40 rounded-xl px-6 py-8 flex flex-col items-center gap-3 cursor-pointer hover:border-lime transition-colors text-center">
-                    <div className="w-10 h-10 rounded-xl bg-surface flex items-center justify-center">
+                  <div className="w-full bg-surface-alt border-2 border-dashed border-subtle/40 rounded-xl px-6 py-10 flex flex-col items-center gap-3 cursor-pointer hover:border-lime transition-colors text-center">
+                    <div className="w-11 h-11 rounded-xl bg-white flex items-center justify-center shadow-sm">
                       <svg className="w-5 h-5 text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
                       </svg>
                     </div>
                     <div>
                       <p className="text-sm font-semibold text-heading">
-                        Drag & drop or{" "}
-                        <span className="text-lime underline underline-offset-2">
-                          browse
-                        </span>
+                        Drag and drop or{" "}
+                        <span className="text-lime underline underline-offset-2">click to upload</span>
                       </p>
-                      <p className="text-xs text-muted mt-0.5">PNG, JPG up to 10 MB</p>
+                      <p className="text-xs text-muted mt-0.5">PNG, JPG, PDF. Max 15mb</p>
                     </div>
-                    <input type="file" accept="image/*" className="sr-only" />
+                    <input type="file" accept="image/*,.pdf" className="sr-only" />
                   </div>
                 </div>
               </div>
             </div>
 
             {/* ─ Section 2: Buyer Information ─ */}
-            <div className="bg-white rounded-[1.875rem] px-8 lg:px-10 py-8">
+            <div className="bg-white rounded-[1.875rem] px-8 py-8">
               <SectionHeader
                 step={2}
                 title="Buyer Information"
-                subtitle="Your contact details so we can reach you with updates."
+                subtitle="Your contact details for inspection reports."
               />
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div className="flex flex-col gap-5">
                 <div>
                   <Label>Full Name</Label>
                   <input
@@ -144,94 +136,86 @@ export default function RequestPage() {
                     className={inputClass}
                   />
                 </div>
-                <div>
-                  <Label>WhatsApp Number</Label>
-                  <div className="flex gap-2">
-                    <span className="bg-surface-alt border border-transparent rounded-xl px-3 py-3 text-sm text-muted font-medium shrink-0 flex items-center">
-                      🇳🇬 +234
-                    </span>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div>
+                    <Label>WhatsApp Number</Label>
+                    <div className="flex gap-2">
+                      <span className="bg-surface-alt border border-transparent rounded-xl px-3 py-3 text-sm text-copy font-medium shrink-0 flex items-center gap-1.5">
+                        🇳🇬 <span className="text-muted">+234</span>
+                      </span>
+                      <input
+                        type="tel"
+                        placeholder="8012345678"
+                        className={inputClass}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <Label>Email Address</Label>
                     <input
-                      type="tel"
-                      placeholder="8012345678"
+                      type="email"
+                      placeholder="you@example.com"
                       className={inputClass}
                     />
                   </div>
-                </div>
-                <div className="sm:col-span-2">
-                  <Label>Email Address</Label>
-                  <input
-                    type="email"
-                    placeholder="you@example.com"
-                    className={inputClass}
-                  />
                 </div>
               </div>
             </div>
 
             {/* ─ Section 3: Seller Information ─ */}
-            <div className="bg-white rounded-[1.875rem] px-8 lg:px-10 py-8">
+            <div className="bg-white rounded-[1.875rem] px-8 py-8">
               <SectionHeader
                 step={3}
                 title="Seller Information"
-                subtitle="Details about the seller so our inspector can arrange a visit."
+                subtitle="Who to send our inspector to."
               />
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                <div>
-                  <Label>Seller Name / Store</Label>
-                  <input
-                    type="text"
-                    placeholder="e.g. Tunde Motors"
-                    className={inputClass}
-                  />
+              <div className="flex flex-col gap-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div>
+                    <Label>Seller Name / Store Name</Label>
+                    <input
+                      type="text"
+                      placeholder="e.g. Tunde Motors, Lagos"
+                      className={inputClass}
+                    />
+                  </div>
+                  <div>
+                    <Label>Seller Phone</Label>
+                    <input
+                      type="tel"
+                      placeholder="Enter seller phone number"
+                      className={inputClass}
+                    />
+                  </div>
                 </div>
                 <div>
-                  <Label>Seller Phone</Label>
-                  <input
-                    type="tel"
-                    placeholder="0801 234 5678"
-                    className={inputClass}
-                  />
-                </div>
-                <div className="sm:col-span-2">
-                  <Label>Pickup / Seller Address</Label>
+                  <Label>Physical Address</Label>
                   <textarea
                     rows={3}
-                    placeholder="Full address where the item is located..."
-                    className={inputClass + " resize-none"}
-                  />
-                </div>
-                <div className="sm:col-span-2">
-                  <Label>Additional Notes (optional)</Label>
-                  <textarea
-                    rows={3}
-                    placeholder="Any specific concerns or things to check..."
+                    placeholder="Detailed address for physical inspection..."
                     className={inputClass + " resize-none"}
                   />
                 </div>
               </div>
             </div>
 
-            {/* ─ Footer CTA ─ */}
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white rounded-[1.875rem] px-8 lg:px-10 py-6">
-              <p className="text-sm text-muted text-center sm:text-left">
-                By submitting, you agree to our{" "}
-                <Link href="#" className="text-primary underline underline-offset-2 hover:text-lime transition-colors">
-                  Terms of Service
-                </Link>{" "}
-                and{" "}
-                <Link href="#" className="text-primary underline underline-offset-2 hover:text-lime transition-colors">
-                  Privacy Policy
-                </Link>.
-              </p>
+            {/* ─ Submit ─ */}
+            <div className="flex flex-col items-center gap-4 py-4">
               <button
                 type="submit"
-                className="font-display inline-flex items-center gap-2.5 bg-primary text-white font-bold text-base px-8 py-4 rounded-full hover:bg-primary/90 transition-colors shadow-lg shrink-0"
+                className="font-display inline-flex items-center gap-2.5 bg-primary text-white font-bold text-lg px-10 py-4 rounded-full hover:bg-primary/90 transition-colors shadow-lg"
               >
                 Request Inspection
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                 </svg>
               </button>
+              <div className="flex items-center gap-2 text-sm text-muted">
+                <svg className="w-4 h-4 text-lime shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M10 1a9 9 0 100 18A9 9 0 0010 1zm3.707 7.293a1 1 0 00-1.414-1.414L9 10.172 7.707 8.879a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+                Secure payment &amp; Verified inspectors
+              </div>
             </div>
 
           </form>

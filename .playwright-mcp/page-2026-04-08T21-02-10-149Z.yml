@@ -1,0 +1,148 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e4]:
+        - link "BuyPadi logo" [ref=e5] [cursor=pointer]:
+          - /url: /
+          - img "BuyPadi logo" [ref=e6]
+        - navigation [ref=e7]:
+          - link "Marketplace" [ref=e8] [cursor=pointer]:
+            - /url: "#how-it-works"
+          - link "Inspections" [ref=e9] [cursor=pointer]:
+            - /url: "#how-it-works"
+          - link "Pricing" [ref=e10] [cursor=pointer]:
+            - /url: "#"
+          - link "About" [ref=e11] [cursor=pointer]:
+            - /url: "#"
+        - generic [ref=e12]:
+          - link "Login" [ref=e13] [cursor=pointer]:
+            - /url: "#"
+          - link "Get Started" [ref=e14] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=e16]:
+      - generic [ref=e17]: Certified Logistics
+      - heading "Request Inspection" [level=1] [ref=e18]
+      - paragraph [ref=e19]: Complete the details below to secure a professional physical inspection before you make any payment.
+    - main [ref=e20]:
+      - generic [ref=e22]:
+        - generic [ref=e23]:
+          - generic [ref=e24]:
+            - generic [ref=e25]: "01"
+            - generic [ref=e26]:
+              - heading "Item Information" [level=2] [ref=e27]
+              - paragraph [ref=e28]: Tell us about the item you want inspected.
+          - generic [ref=e29]:
+            - generic [ref=e30]:
+              - generic [ref=e31]: Product Link
+              - textbox "https://jiji.ng/listing/..." [ref=e32]
+              - paragraph [ref=e33]: Paste the listing URL from Jiji, Facebook, Instagram, etc.
+            - generic [ref=e34]:
+              - generic [ref=e35]: Item Price (₦)
+              - spinbutton [ref=e36]
+            - generic [ref=e37]:
+              - generic [ref=e38]: Item Category
+              - combobox [ref=e39] [cursor=pointer]:
+                - option "Select a category" [selected]
+                - option "Vehicles"
+                - option "Electronics"
+                - option "Fashion & Accessories"
+                - option "Real Estate"
+                - option "Other"
+            - generic [ref=e40]:
+              - generic [ref=e41]: Upload Screenshot (optional)
+              - generic [ref=e42] [cursor=pointer]:
+                - img [ref=e44]
+                - generic [ref=e46]:
+                  - paragraph [ref=e47]: Drag & drop or browse
+                  - paragraph [ref=e48]: PNG, JPG up to 10 MB
+                - button "Choose File" [ref=e49]
+        - generic [ref=e50]:
+          - generic [ref=e51]:
+            - generic [ref=e52]: "02"
+            - generic [ref=e53]:
+              - heading "Buyer Information" [level=2] [ref=e54]
+              - paragraph [ref=e55]: Your contact details so we can reach you with updates.
+          - generic [ref=e56]:
+            - generic [ref=e57]:
+              - generic [ref=e58]: Full Name
+              - textbox "Emeka Johnson" [ref=e59]
+            - generic [ref=e60]:
+              - generic [ref=e61]: WhatsApp Number
+              - generic [ref=e62]:
+                - generic [ref=e63]: 🇳🇬 +234
+                - textbox "8012345678" [ref=e64]
+            - generic [ref=e65]:
+              - generic [ref=e66]: Email Address
+              - textbox "you@example.com" [ref=e67]
+        - generic [ref=e68]:
+          - generic [ref=e69]:
+            - generic [ref=e70]: "03"
+            - generic [ref=e71]:
+              - heading "Seller Information" [level=2] [ref=e72]
+              - paragraph [ref=e73]: Details about the seller so our inspector can arrange a visit.
+          - generic [ref=e74]:
+            - generic [ref=e75]:
+              - generic [ref=e76]: Seller Name / Store
+              - textbox "e.g. Tunde Motors" [ref=e77]
+            - generic [ref=e78]:
+              - generic [ref=e79]: Seller Phone
+              - textbox "0801 234 5678" [ref=e80]
+            - generic [ref=e81]:
+              - generic [ref=e82]: Pickup / Seller Address
+              - textbox "Full address where the item is located..." [ref=e83]
+            - generic [ref=e84]:
+              - generic [ref=e85]: Additional Notes (optional)
+              - textbox "Any specific concerns or things to check..." [ref=e86]
+        - generic [ref=e87]:
+          - paragraph [ref=e88]:
+            - text: By submitting, you agree to our
+            - link "Terms of Service" [ref=e89] [cursor=pointer]:
+              - /url: "#"
+            - text: and
+            - link "Privacy Policy" [ref=e90] [cursor=pointer]:
+              - /url: "#"
+            - text: .
+          - button "Request Inspection" [ref=e91]:
+            - text: Request Inspection
+            - img [ref=e92]
+    - contentinfo [ref=e94]:
+      - generic [ref=e96]:
+        - generic [ref=e97]:
+          - generic [ref=e98]: BuyPadi.ng
+          - paragraph [ref=e99]: "© 2024 BuyPadi.ng. Secure Asset Custodianship. Nigeria's #1 verification and inspection partner."
+        - generic [ref=e100]:
+          - heading "Company" [level=5] [ref=e101]
+          - list [ref=e102]:
+            - listitem [ref=e103]:
+              - link "About Us" [ref=e104] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=e105]:
+              - link "Pricing" [ref=e106] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=e107]:
+              - link "Contact Us" [ref=e108] [cursor=pointer]:
+                - /url: "#"
+        - generic [ref=e109]:
+          - heading "Legal" [level=5] [ref=e110]
+          - list [ref=e111]:
+            - listitem [ref=e112]:
+              - link "Privacy Policy" [ref=e113] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=e114]:
+              - link "Terms of Service" [ref=e115] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=e116]:
+              - link "Cookie Policy" [ref=e117] [cursor=pointer]:
+                - /url: "#"
+        - generic [ref=e118]:
+          - heading "Connect" [level=5] [ref=e119]
+          - generic [ref=e120]:
+            - link "Follow on X" [ref=e121] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e122]
+            - link "Follow on Instagram" [ref=e124] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e125]
+          - paragraph [ref=e127]: "Headquarters: Victoria Island, Lagos."
+  - button "Open Next.js Dev Tools" [ref=e133] [cursor=pointer]:
+    - img [ref=e134]

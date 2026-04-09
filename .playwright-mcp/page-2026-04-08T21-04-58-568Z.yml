@@ -1,0 +1,137 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e4]:
+        - link "BuyPadi logo" [ref=e5] [cursor=pointer]:
+          - /url: /
+          - img "BuyPadi logo" [ref=e6]
+        - navigation [ref=e7]:
+          - link "Marketplace" [ref=e8] [cursor=pointer]:
+            - /url: "#how-it-works"
+          - link "Inspections" [ref=e9] [cursor=pointer]:
+            - /url: "#how-it-works"
+          - link "Pricing" [ref=e10] [cursor=pointer]:
+            - /url: "#"
+          - link "About" [ref=e11] [cursor=pointer]:
+            - /url: "#"
+        - generic [ref=e12]:
+          - link "Login" [ref=e13] [cursor=pointer]:
+            - /url: "#"
+          - link "Get Started" [ref=e14] [cursor=pointer]:
+            - /url: "#"
+    - generic [ref=e16]:
+      - generic [ref=e17]: Certified Logistics
+      - heading "Request Inspection" [level=1] [ref=e18]
+      - paragraph [ref=e19]: Complete the details below to secure a professional physical inspection of your intended purchase. We ensure what you see is what you get.
+    - main [ref=e20]:
+      - generic [ref=e22]:
+        - generic [ref=e23]:
+          - generic [ref=e24]:
+            - generic [ref=e25]: "1"
+            - generic [ref=e26]:
+              - heading "Item Information" [level=2] [ref=e27]
+              - paragraph [ref=e28]: Tell us about the item (product link or item details).
+          - generic [ref=e29]:
+            - generic [ref=e30]:
+              - generic [ref=e31]: Product Link
+              - textbox "Paste link (e.g. Jiji, FB, IG or text)" [ref=e32]
+            - generic [ref=e33]:
+              - generic [ref=e34]: Item Price (₦)
+              - spinbutton [ref=e35]
+            - generic [ref=e36]:
+              - generic [ref=e37]: Optional Comments
+              - textbox "Any specific things you want us to check..." [ref=e38]
+            - generic [ref=e39]:
+              - generic [ref=e40]: Upload Screenshot (optional)
+              - generic [ref=e41] [cursor=pointer]:
+                - img [ref=e43]
+                - generic [ref=e45]:
+                  - paragraph [ref=e46]: Drag and drop or click to upload
+                  - paragraph [ref=e47]: PNG, JPG, PDF. Max 15mb
+                - button "Choose File" [ref=e48]
+        - generic [ref=e49]:
+          - generic [ref=e50]:
+            - generic [ref=e51]: "2"
+            - generic [ref=e52]:
+              - heading "Buyer Information" [level=2] [ref=e53]
+              - paragraph [ref=e54]: Your contact details for inspection reports.
+          - generic [ref=e55]:
+            - generic [ref=e56]:
+              - generic [ref=e57]: Full Name
+              - textbox "Emeka Johnson" [ref=e58]
+            - generic [ref=e59]:
+              - generic [ref=e60]:
+                - generic [ref=e61]: WhatsApp Number
+                - generic [ref=e62]:
+                  - generic [ref=e63]:
+                    - text: 🇳🇬
+                    - generic [ref=e64]: "+234"
+                  - textbox "8012345678" [ref=e65]
+              - generic [ref=e66]:
+                - generic [ref=e67]: Email Address
+                - textbox "you@example.com" [ref=e68]
+        - generic [ref=e69]:
+          - generic [ref=e70]:
+            - generic [ref=e71]: "3"
+            - generic [ref=e72]:
+              - heading "Seller Information" [level=2] [ref=e73]
+              - paragraph [ref=e74]: Who to send our inspector to.
+          - generic [ref=e75]:
+            - generic [ref=e76]:
+              - generic [ref=e77]:
+                - generic [ref=e78]: Seller Name / Store Name
+                - textbox "e.g. Tunde Motors, Lagos" [ref=e79]
+              - generic [ref=e80]:
+                - generic [ref=e81]: Seller Phone
+                - textbox "Enter seller phone number" [ref=e82]
+            - generic [ref=e83]:
+              - generic [ref=e84]: Physical Address
+              - textbox "Detailed address for physical inspection..." [ref=e85]
+        - generic [ref=e86]:
+          - button "Request Inspection" [ref=e87]:
+            - text: Request Inspection
+            - img [ref=e88]
+          - generic [ref=e90]:
+            - img [ref=e91]
+            - text: Secure payment & Verified inspectors
+    - contentinfo [ref=e93]:
+      - generic [ref=e95]:
+        - generic [ref=e96]:
+          - generic [ref=e97]: BuyPadi.ng
+          - paragraph [ref=e98]: "© 2024 BuyPadi.ng. Secure Asset Custodianship. Nigeria's #1 verification and inspection partner."
+        - generic [ref=e99]:
+          - heading "Company" [level=5] [ref=e100]
+          - list [ref=e101]:
+            - listitem [ref=e102]:
+              - link "About Us" [ref=e103] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=e104]:
+              - link "Pricing" [ref=e105] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=e106]:
+              - link "Contact Us" [ref=e107] [cursor=pointer]:
+                - /url: "#"
+        - generic [ref=e108]:
+          - heading "Legal" [level=5] [ref=e109]
+          - list [ref=e110]:
+            - listitem [ref=e111]:
+              - link "Privacy Policy" [ref=e112] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=e113]:
+              - link "Terms of Service" [ref=e114] [cursor=pointer]:
+                - /url: "#"
+            - listitem [ref=e115]:
+              - link "Cookie Policy" [ref=e116] [cursor=pointer]:
+                - /url: "#"
+        - generic [ref=e117]:
+          - heading "Connect" [level=5] [ref=e118]
+          - generic [ref=e119]:
+            - link "Follow on X" [ref=e120] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e121]
+            - link "Follow on Instagram" [ref=e123] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e124]
+          - paragraph [ref=e126]: "Headquarters: Victoria Island, Lagos."
+  - button "Open Next.js Dev Tools" [ref=e132] [cursor=pointer]:
+    - img [ref=e133]

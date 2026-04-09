@@ -1,7 +1,12 @@
 export default function KeyBenefits() {
   return (
-    <section className="bg-surface pt-56 pb-20 px-6 lg:px-12 relative z-10">
-      <div className="max-w-384 mx-auto">
+    <section className="pt-72 lg:pt-96 pb-20 px-6 lg:px-12 relative z-30">
+      {/* Gradient: transparent at top (rider shows through) → solid surface (heading readable) */}
+      <div className="absolute top-0 inset-x-0 h-72 lg:h-96 bg-linear-to-b from-transparent to-surface pointer-events-none" />
+      {/* Solid surface background below the gradient zone */}
+      <div className="absolute top-72 lg:top-96 inset-x-0 bottom-0 bg-surface pointer-events-none" />
+
+      <div className="max-w-384 mx-auto relative">
         {/* Heading */}
         <div className="mb-10 text-center">
           <h2 className="font-display text-4xl lg:text-[64px] font-black text-primary leading-tight tracking-tight">

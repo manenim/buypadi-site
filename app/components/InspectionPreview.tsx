@@ -73,11 +73,11 @@ export default function InspectionPreview() {
       {/* Scooter rider — absolute, decorative, low z-index, spans the bottom of this
           section and the top of the Key Benefits section below */}
       <div
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 z-20
-                   w-[340px] lg:w-[480px] pointer-events-none select-none"
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[78%] z-20
+                   w-75 lg:w-110 pointer-events-none select-none"
       >
         <Image
-          src="/assets/scooter-rider-2.png"
+          src="/assets/scooter-rider.png"
           alt=""
           aria-hidden="true"
           width={580}
