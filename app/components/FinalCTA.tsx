@@ -17,9 +17,17 @@ export default function FinalCTA() {
       </div>
 
       <div className="max-w-350 mx-auto bg-primary rounded-3xl px-8 lg:px-16 py-16 lg:py-20 relative z-10 overflow-hidden">
-        {/* Decorative circles */}
-        <div className="absolute top-0 right-0 w-64 h-64 rounded-full bg-lime/10 translate-x-1/3 -translate-y-1/3 pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-48 h-48 rounded-full bg-lime/10 -translate-x-1/3 translate-y-1/3 pointer-events-none" />
+        {/* Shield icon — large faint decorative element, right side of card */}
+        <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/4 w-64 lg:w-80 opacity-20 pointer-events-none select-none">
+          <Image
+            src="/assets/shield-Icon.png"
+            alt=""
+            aria-hidden="true"
+            width={320}
+            height={320}
+            className="w-full h-auto"
+          />
+        </div>
 
         <div className="relative z-10 flex flex-col gap-8 max-w-3xl">
           <h2 className="font-display text-3xl lg:text-[52px] font-black text-white leading-tight">

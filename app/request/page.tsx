@@ -45,26 +45,20 @@ export default function RequestPage() {
     <div className="min-h-screen bg-surface flex flex-col">
       <Navbar />
 
-      {/* ── Page header ── */}
-      <div className="bg-primary px-6 lg:px-12 py-12 lg:py-16">
-        <div className="max-w-3xl mx-auto flex flex-col gap-3">
-          <span className="inline-flex items-center w-fit bg-lime-bright text-primary text-[0.6875rem] font-display font-bold uppercase tracking-widest rounded-full px-4 py-1.5">
-            Certified Logistics
-          </span>
-          <h1 className="font-display text-4xl lg:text-[52px] font-black text-white leading-tight">
-            Request Inspection
-          </h1>
-          <p className="text-white/60 text-base lg:text-lg max-w-md leading-relaxed">
-            Complete the details below to secure a professional physical
-            inspection of your intended purchase. We ensure what you see is what
-            you get.
-          </p>
-        </div>
-      </div>
-
       {/* ── Form body ── */}
-      <main className="flex-1 px-4 sm:px-6 lg:px-12 py-10">
-        <div className="max-w-3xl mx-auto">
+      <main className="flex-1 px-4 sm:px-6 lg:px-12 py-10 lg:py-14">
+        <div className="max-w-3xl md:max-w-4xl lg:max-w-5xl mx-auto">
+          {/* Page title — plain, no banner */}
+          <div className="mb-8 lg:mb-10">
+            <h1 className="font-display text-3xl lg:text-[40px] font-black text-heading leading-tight">
+              Request Inspection
+            </h1>
+            <p className="text-copy text-base mt-2 leading-relaxed max-w-lg lg:max-w-2xl">
+              Complete this form to book a professional physical inspection of
+              your intended purchase. We show you what you see to what you get.
+            </p>
+          </div>
+
           <form className="flex flex-col gap-5">
 
             {/* ─ Section 1: Item Information ─ */}

@@ -1,67 +1,48 @@
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
-import Link from "next/link";
 
 export const metadata = {
   title: "Track Order — BuyPadi",
-  description: "Track the status of your BuyPadi inspection and delivery in real time.",
+  description: "Track the status of your BuyPadi inspection in real time.",
 };
 
-type StepStatus = "completed" | "active" | "pending";
-
-const steps: { title: string; description: string; status: StepStatus; time?: string }[] = [
-  {
-    title: "Order Received",
-    description: "Your inspection request has been confirmed and payment received.",
-    status: "completed",
-    time: "Mon, 1 Apr · 9:14 AM",
-  },
-  {
-    title: "Inspector Assigned",
-    description: "A verified inspector near the seller has been matched to your order.",
-    status: "completed",
-    time: "Mon, 1 Apr · 11:02 AM",
-  },
-  {
-    title: "Inspection Scheduled",
-    description: "Your inspector is coordinating a visit time with the seller.",
-    status: "active",
-    time: "In progress",
-  },
-  {
-    title: "Report Ready",
-    description: "Full photo/video report with Padi Score will be shared with you.",
-    status: "pending",
-  },
-  {
-    title: "Delivery Arranged",
-    description: "Once approved, logistics will be booked to deliver the item to you.",
-    status: "pending",
-  },
-];
-
-function StepDot({ status }: { status: StepStatus }) {
-  if (status === "completed") {
-    return (
-      <div className="relative z-10 w-9 h-9 rounded-full bg-primary flex items-center justify-center shrink-0 shadow-md">
-        <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-        </svg>
-      </div>
-    );
-  }
-  if (status === "active") {
-    return (
-      <div className="relative z-10 w-9 h-9 rounded-full bg-lime flex items-center justify-center shrink-0 shadow-md">
-        <span className="w-3 h-3 rounded-full bg-white" />
-        {/* Pulse ring */}
-        <span className="absolute inset-0 rounded-full bg-lime animate-ping opacity-40" />
-      </div>
-    );
-  }
+function CompletedDot() {
   return (
-    <div className="relative z-10 w-9 h-9 rounded-full bg-surface-alt border-2 border-subtle/30 flex items-center justify-center shrink-0">
-      <span className="w-2.5 h-2.5 rounded-full bg-subtle/50" />
+    <div className="relative z-10 w-9 h-9 rounded-full bg-primary flex items-center justify-center shrink-0">
+      <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+      </svg>
+    </div>
+  );
+}
+
+function ActiveDot() {
+  return (
+    <div className="relative z-10 w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center shrink-0">
+      <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+      </svg>
+    </div>
+  );
+}
+
+function TruckDot() {
+  return (
+    <div className="relative z-10 w-9 h-9 rounded-full bg-surface-alt flex items-center justify-center shrink-0">
+      <svg className="w-4 h-4 text-subtle" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
+      </svg>
+    </div>
+  );
+}
+
+function PinDot() {
+  return (
+    <div className="relative z-10 w-9 h-9 rounded-full bg-surface-alt flex items-center justify-center shrink-0">
+      <svg className="w-4 h-4 text-subtle" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+      </svg>
     </div>
   );
 }
@@ -71,173 +52,190 @@ export default function TrackPage() {
     <div className="min-h-screen bg-surface flex flex-col">
       <Navbar />
 
-      {/* ── Page header ── */}
-      <div className="bg-primary px-6 lg:px-12 py-14 lg:py-20">
-        <div className="max-w-7xl mx-auto flex flex-col gap-5">
-          {/* Order badge */}
-          <div className="inline-flex items-center w-fit gap-2.5 bg-white/10 border border-white/20 rounded-full px-4 py-2">
-            <svg className="w-3.5 h-3.5 text-lime" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-13a.75.75 0 00-1.5 0v5c0 .414.336.75.75.75h4a.75.75 0 000-1.5h-3.25V5z" clipRule="evenodd" />
-            </svg>
-            <span className="font-display text-xs font-bold text-white/80 uppercase tracking-widest">
-              Order #BP-882910
-            </span>
-          </div>
+      <main className="flex-1 px-4 sm:px-6 lg:px-12 py-10 lg:py-14">
+        <div className="max-w-6xl mx-auto">
 
-          <h1 className="font-display text-4xl lg:text-5xl font-black text-white leading-tight">
-            Track your verification
-          </h1>
-          <p className="text-white/60 text-base lg:text-lg max-w-xl leading-relaxed">
-            Your inspector is currently reviewing the vehicle documentation.
-            We&apos;ll update you at every stage via WhatsApp and email.
-          </p>
-
-          {/* Current status pill */}
-          <div className="flex items-center gap-3 mt-2">
-            <span className="text-sm text-white/50 font-medium">Current Status:</span>
-            <span className="inline-flex items-center gap-2 bg-lime-bright text-primary text-sm font-display font-bold px-4 py-1.5 rounded-full">
-              <span className="w-2 h-2 rounded-full bg-primary/60 animate-pulse" />
-              Inspection Scheduled
-            </span>
-          </div>
-        </div>
-      </div>
-
-      {/* ── Main content: asymmetric 2-col ── */}
-      <main className="flex-1 px-4 sm:px-6 lg:px-12 py-12">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-6">
-
-          {/* ─ LEFT: Journey Timeline ─ */}
-          <div className="bg-white rounded-[1.875rem] px-8 lg:px-10 py-8">
-            {/* Panel heading */}
-            <div className="flex items-center gap-3 mb-8">
-              <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center">
-                <svg className="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z" />
+          {/* ── Page header ── */}
+          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-5 mb-10">
+            <div className="flex flex-col gap-3">
+              {/* Order badge */}
+              <div className="inline-flex items-center w-fit gap-2 bg-white border border-surface-alt rounded-full px-3.5 py-1.5 shadow-sm">
+                <svg className="w-3.5 h-3.5 text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25z" />
                 </svg>
+                <span className="text-xs font-semibold text-muted">Order #BP-882910</span>
               </div>
-              <h2 className="font-display text-xl font-bold text-heading">Journey Timeline</h2>
+
+              <h1 className="font-display text-3xl lg:text-[40px] font-black text-heading leading-tight">
+                Track your verification
+              </h1>
+              <p className="text-copy text-base leading-relaxed max-w-md">
+                Your inspector is currently reviewing the vehicle documentation.
+                We&apos;ll update you as soon as they arrive on-site.
+              </p>
             </div>
 
-            {/* Steps */}
-            <div className="relative flex flex-col gap-0">
-              {/* Vertical connector line */}
-              <div className="absolute left-[17px] top-9 bottom-9 w-0.5 bg-surface-alt z-0" />
+            {/* Current status */}
+            <div className="flex flex-col items-start md:items-end gap-2 shrink-0">
+              <span className="text-xs font-semibold text-muted uppercase tracking-widest">Current Status</span>
+              <span className="inline-flex items-center gap-2 bg-lime text-white text-sm font-display font-bold px-4 py-2 rounded-full">
+                <span className="w-2 h-2 rounded-full bg-white/70 animate-pulse" />
+                Inspection Scheduled
+              </span>
+            </div>
+          </div>
 
-              {steps.map((step, i) => (
-                <div key={step.title} className="flex gap-5 pb-8 last:pb-0">
-                  <StepDot status={step.status} />
-                  <div className="flex flex-col gap-1 pt-1.5 flex-1">
-                    <div className="flex items-center justify-between flex-wrap gap-2">
-                      <h3
-                        className={`font-display text-base font-bold ${
-                          step.status === "pending" ? "text-muted" : "text-heading"
-                        }`}
-                      >
-                        {step.title}
-                      </h3>
-                      {step.time && (
-                        <span
-                          className={`text-xs font-medium px-2.5 py-1 rounded-full ${
-                            step.status === "active"
-                              ? "bg-lime/15 text-primary font-bold"
-                              : "bg-surface-alt text-muted"
-                          }`}
-                        >
-                          {step.time}
-                        </span>
-                      )}
-                    </div>
-                    <p
-                      className={`text-sm leading-relaxed ${
-                        step.status === "pending" ? "text-subtle" : "text-copy"
-                      }`}
-                    >
-                      {step.description}
-                    </p>
+          {/* ── Two-column layout ── */}
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-5">
+
+            {/* ─ LEFT: Journey Timeline ─ */}
+            <div className="bg-white rounded-[1.875rem] px-8 lg:px-10 py-8">
+              <div className="flex items-center justify-between mb-8">
+                <div className="flex items-center gap-3">
+                  <svg className="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5" />
+                  </svg>
+                  <h2 className="font-display text-lg font-bold text-heading">Journey Timeline</h2>
+                </div>
+                <svg className="w-8 h-8 text-subtle/40" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
+                </svg>
+              </div>
+
+              {/* Steps */}
+              <div className="relative flex flex-col">
+                {/* Vertical connector line */}
+                <div className="absolute left-[17px] top-5 bottom-5 w-0.5 bg-surface-alt z-0" />
+
+                {/* Step 1: Request Received */}
+                <div className="flex gap-5 pb-8">
+                  <CompletedDot />
+                  <div className="pt-1.5">
+                    <h3 className="font-display text-base font-bold text-heading">Request Received</h3>
+                    <p className="text-sm text-muted mt-0.5">October 24, 2024 • 09:12 AM</p>
+                    <span className="inline-flex items-center gap-1.5 mt-2 bg-lime/10 text-lime-dark text-xs font-semibold px-2.5 py-1 rounded-full">
+                      <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                      </svg>
+                      Verified by System
+                    </span>
                   </div>
                 </div>
-              ))}
+
+                {/* Step 2: Payment Confirmed */}
+                <div className="flex gap-5 pb-8">
+                  <CompletedDot />
+                  <div className="pt-1.5">
+                    <h3 className="font-display text-base font-bold text-heading">Payment Confirmed</h3>
+                    <p className="text-sm text-muted mt-0.5">October 24, 2024 • 10:45 AM</p>
+                  </div>
+                </div>
+
+                {/* Step 3: Inspection Scheduled (active) */}
+                <div className="flex gap-5 pb-8">
+                  <ActiveDot />
+                  <div className="pt-1.5 flex-1">
+                    <h3 className="font-display text-base font-bold text-blue-600">Inspection Scheduled</h3>
+                    <p className="text-sm text-muted mt-0.5">Scheduled for Today • 2:00 PM – 4:00 PM</p>
+                    {/* Inspector card */}
+                    <div className="mt-3 bg-surface-alt rounded-2xl px-4 py-3 flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
+                        <svg className="w-5 h-5 text-primary/60" fill="currentColor" viewBox="0 0 24 24">
+                          <path fillRule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clipRule="evenodd" />
+                        </svg>
+                      </div>
+                      <div>
+                        <p className="text-[10px] font-bold text-muted uppercase tracking-widest">Assigned Inspector</p>
+                        <p className="text-sm font-semibold text-heading">Olawale Johnson</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Step 4: Inspector En Route */}
+                <div className="flex gap-5 pb-8">
+                  <TruckDot />
+                  <div className="pt-1.5">
+                    <h3 className="font-display text-base font-bold text-muted">Inspector En Route</h3>
+                    <p className="text-sm text-subtle mt-0.5">Pending location update</p>
+                  </div>
+                </div>
+
+                {/* Step 5: Delivered */}
+                <div className="flex gap-5">
+                  <PinDot />
+                  <div className="pt-1.5">
+                    <h3 className="font-display text-base font-bold text-muted">Delivered</h3>
+                    <p className="text-sm text-subtle mt-0.5">Final report will be uploaded here.</p>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
 
-          {/* ─ RIGHT: Detail Cards ─ */}
-          <div className="flex flex-col gap-5">
+            {/* ─ RIGHT: Stacked cards ─ */}
+            <div className="flex flex-col gap-4">
 
-            {/* Asset Preview Card */}
-            <div className="bg-white rounded-[1.875rem] px-6 py-6 flex flex-col gap-4">
-              <h3 className="font-display text-base font-bold text-heading">Item Being Inspected</h3>
-              <div className="bg-surface-alt rounded-2xl h-44 flex items-center justify-center">
-                <div className="flex flex-col items-center gap-2 text-center px-4">
-                  <svg className="w-8 h-8 text-subtle" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3 4.5h18M3 9h18" />
+              {/* Vehicle card */}
+              <div className="bg-white rounded-[1.875rem] overflow-hidden">
+                <div className="relative h-44 bg-surface-alt flex items-center justify-center">
+                  <svg className="w-16 h-16 text-subtle/40" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
                   </svg>
-                  <p className="text-xs text-muted">Item photo will appear here after inspector confirms</p>
+                  <span className="absolute top-3 right-3 inline-flex items-center gap-1.5 bg-lime text-white text-xs font-bold px-3 py-1.5 rounded-full">
+                    <span className="w-1.5 h-1.5 rounded-full bg-white/70" />
+                    Pre-Inspection
+                  </span>
+                </div>
+                <div className="px-6 py-5 flex flex-col gap-4">
+                  <div>
+                    <h3 className="font-display text-lg font-bold text-heading">2021 Toyota Camry LE</h3>
+                    <p className="text-sm text-muted mt-0.5">Silver Metallic • 42,500 km</p>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="bg-surface-alt rounded-xl px-3 py-2.5">
+                      <p className="text-[10px] font-bold text-muted uppercase tracking-wider mb-0.5">Location</p>
+                      <p className="text-sm font-semibold text-heading">Ikeja, Lagos</p>
+                    </div>
+                    <div className="bg-surface-alt rounded-xl px-3 py-2.5">
+                      <p className="text-[10px] font-bold text-muted uppercase tracking-wider mb-0.5">Dealer</p>
+                      <p className="text-sm font-semibold text-heading">Star Motors</p>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div className="flex flex-col gap-2">
-                <div className="flex justify-between items-center py-2 border-b border-surface-alt">
-                  <span className="text-xs text-muted">Item</span>
-                  <span className="text-xs font-semibold text-heading">2018 Toyota Camry XSE</span>
-                </div>
-                <div className="flex justify-between items-center py-2 border-b border-surface-alt">
-                  <span className="text-xs text-muted">Listed Price</span>
-                  <span className="text-xs font-semibold text-heading">₦6,800,000</span>
-                </div>
-                <div className="flex justify-between items-center py-2">
-                  <span className="text-xs text-muted">Padi Score</span>
-                  <span className="text-xs font-bold text-lime">Pending</span>
-                </div>
-              </div>
-            </div>
 
-            {/* Notification Card */}
-            <div className="bg-lime-light rounded-[1.875rem] px-6 py-6 flex items-start gap-4">
-              <div className="w-9 h-9 rounded-xl bg-lime flex items-center justify-center shrink-0">
-                <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+              {/* SMS Updates card */}
+              <div className="bg-white rounded-[1.875rem] px-6 py-5 flex items-start gap-4">
+                <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center shrink-0">
+                  <svg className="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="font-display text-sm font-bold text-heading">SMS Updates Active</p>
+                  <p className="text-xs text-copy leading-relaxed mt-1">
+                    You&apos;ll receive a text message as soon as the inspector starts the 150-point check.
+                  </p>
+                </div>
+              </div>
+
+              {/* Need assistance card */}
+              <button className="bg-white rounded-[1.875rem] px-6 py-5 flex items-center gap-4 hover:bg-surface-alt/50 transition-colors w-full text-left">
+                <div className="w-10 h-10 rounded-full bg-surface-alt flex items-center justify-center shrink-0">
+                  <svg className="w-5 h-5 text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <p className="font-display text-sm font-bold text-heading">Need assistance?</p>
+                  <p className="text-xs text-muted mt-0.5">Speak with a logistics officer</p>
+                </div>
+                <svg className="w-5 h-5 text-muted shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                 </svg>
-              </div>
-              <div className="flex flex-col gap-1">
-                <p className="font-display text-sm font-bold text-primary">Updates via WhatsApp</p>
-                <p className="text-xs text-primary/70 leading-relaxed">
-                  You&apos;ll receive real-time updates at every stage directly on WhatsApp. Check your messages.
-                </p>
-              </div>
-            </div>
+              </button>
 
-            {/* Help / Contact Card */}
-            <div className="bg-white rounded-[1.875rem] px-6 py-6 flex flex-col gap-4">
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-surface-alt flex items-center justify-center shrink-0">
-                  <svg className="w-4 h-4 text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
-                  </svg>
-                </div>
-                <h3 className="font-display text-base font-bold text-heading">Need Help?</h3>
-              </div>
-              <p className="text-sm text-copy leading-relaxed">
-                Our support team is available Mon–Sat, 8 AM–8 PM. Reach us via WhatsApp or email.
-              </p>
-              <div className="flex flex-col gap-2">
-                <Link
-                  href="https://wa.me/2348000000000"
-                  className="inline-flex items-center justify-center gap-2 bg-primary text-white font-display font-semibold text-sm px-4 py-2.5 rounded-full hover:bg-primary/90 transition-colors"
-                >
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-                  </svg>
-                  Chat on WhatsApp
-                </Link>
-                <Link
-                  href="mailto:support@buypadi.ng"
-                  className="inline-flex items-center justify-center gap-2 border-2 border-surface-alt text-copy font-display font-semibold text-sm px-4 py-2.5 rounded-full hover:border-lime hover:text-primary transition-colors"
-                >
-                  support@buypadi.ng
-                </Link>
-              </div>
             </div>
-
           </div>
         </div>
       </main>
