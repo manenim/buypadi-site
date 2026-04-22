@@ -6,7 +6,7 @@ export default function KeyBenefits() {
       {/* Solid surface background below the gradient zone */}
       <div className="absolute top-72 lg:top-96 inset-x-0 bottom-0 bg-surface pointer-events-none" />
 
-      <div className="max-w-384 mx-auto relative">
+      <div id="benefits" className="max-w-384 mx-auto relative">
         {/* Heading */}
         <div className="mb-10 text-center">
           <h2 className="font-display text-4xl lg:text-[64px] font-black text-primary leading-tight tracking-tight">
@@ -21,7 +21,11 @@ export default function KeyBenefits() {
           {/* Card 1 — Avoid Scams (large, white) */}
           <div className="md:col-span-2 bg-white rounded-3xl p-8 lg:p-10 flex flex-col gap-6 shadow-sm">
             <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
-              <svg className="w-4 h-5 text-white" fill="none" viewBox="0 0 20 24">
+              <svg
+                className="w-4 h-5 text-white"
+                fill="none"
+                viewBox="0 0 20 24"
+              >
                 <path
                   d="M10 1L19 5.5V12C19 17.2 15.1 22 10 23C4.9 22 1 17.2 1 12V5.5L10 1Z"
                   fill="currentColor"

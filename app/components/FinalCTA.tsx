@@ -34,19 +34,19 @@ export default function FinalCTA() {
             Ready for a safer way to buy?
           </h2>
           <p className="text-lg lg:text-xl text-on-dark font-medium leading-relaxed">
-            Join thousands of Nigerians using BuyPadi to secure their
-            high-value purchases today.
+            Join thousands of Nigerians using BuyPadi to secure their high-value
+            purchases today.
           </p>
 
           <div className="flex flex-wrap gap-4">
             <Link
-              href="#"
+              href="/request"
               className="font-sans inline-flex items-center gap-2 bg-lime text-primary font-semibold text-lg px-8 py-4 rounded-full hover:bg-lime-dark transition-colors shadow-lg"
             >
               Order Inspection
             </Link>
             <Link
-              href="#"
+              href="https://wa.me/2348026100848"
               className="font-sans inline-flex items-center gap-2 border-2 border-white/30 text-white font-bold text-lg px-8 py-4 rounded-full hover:border-white/60 transition-colors"
             >
               Contact Sales

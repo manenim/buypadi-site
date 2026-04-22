@@ -38,7 +38,7 @@ export default function Hero() {
             {/* CTAs */}
             <div className="flex flex-wrap gap-3 sm:gap-4 mt-2">
               <Link
-                href="#"
+                href="/request"
                 className="font-display inline-flex items-center bg-white text-primary
                            text-base font-bold px-6 py-3.5 rounded-full
                            shadow-lg hover:bg-gray-50 transition-colors"
