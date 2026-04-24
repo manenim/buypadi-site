@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import type { InspectionRequest } from '@/app/lib/types';
 import { RequestStatusBadge } from '@/app/components/admin/StatusBadge';
-import { getAllRequests, seedIfEmpty } from '@/app/lib/mock-store';
 
 function formatNaira(n: number) {
   return `₦${n.toLocaleString('en-NG')}`;
@@ -20,9 +19,7 @@ function formatDate(iso: string) {
 
 export default function AdminDashboard() {
   const [requests] = useState<InspectionRequest[]>(() => {
-    if (typeof window === 'undefined') return [];
-    seedIfEmpty();
-    return getAllRequests();
+    return [];
   });
 
   const total = requests.length;

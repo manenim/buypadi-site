@@ -54,6 +54,8 @@ export default function RequestDetailPage({ params }: { params: Promise<{ id: st
   const [creatingInvoice, setCreatingInvoice] = useState(false);
   const [submittingInvoice, setSubmittingInvoice] = useState(false);
 
+  const [mutationError, setMutationError] = useState<string | null>(null);
+
   const [inspectionFee, setInspectionFee] = useState('');
   const [deliveryFee, setDeliveryFee] = useState('');
   const [invoiceNotes, setInvoiceNotes] = useState('');
@@ -80,22 +82,24 @@ export default function RequestDetailPage({ params }: { params: Promise<{ id: st
 
   async function handleStatusChange(status: string) {
     if (!request) return;
+    setMutationError(null);
     try {
       const updated = await api.updateRequestStatus(request.orderId, status);
       setRequest(updated);
     } catch (err: any) {
-      console.error('Status update failed:', err);
+      setMutationError(err.message ?? 'Failed to update status. Please try again.');
     }
   }
 
   async function handleInspectorChange(name: string) {
     if (!request) return;
+    setMutationError(null);
     try {
       // Reuse updateRequestStatus — UpdateStatusDto accepts assignedInspectorName without changing status
       const updated = await api.updateRequestStatus(request.orderId, request.status, name || undefined);
       setRequest(updated);
     } catch (err: any) {
-      console.error('Inspector update failed:', err);
+      setMutationError(err.message ?? 'Failed to update inspector. Please try again.');
     }
   }
 
@@ -111,6 +115,7 @@ export default function RequestDetailPage({ params }: { params: Promise<{ id: st
     const parsedDeliveryFee = parseFloat(deliveryFee) || 0;
     if (parsedInspectionFee + parsedDeliveryFee === 0) return;
 
+    setMutationError(null);
     setSubmittingInvoice(true);
     try {
       const payload: CreateInvoicePayload = {
@@ -128,7 +133,7 @@ export default function RequestDetailPage({ params }: { params: Promise<{ id: st
       setInvoice(newInvoice);
       setCreatingInvoice(false);
     } catch (err: any) {
-      console.error('Invoice creation failed:', err);
+      setMutationError(err.message ?? 'Failed to create invoice. Please try again.');
     } finally {
       setSubmittingInvoice(false);
     }
@@ -361,7 +366,13 @@ export default function RequestDetailPage({ params }: { params: Promise<{ id: st
             )}
           </div>
 
-          <a href={`https://wa.me/234${request.buyerWhatsapp.replace(/^0/, '')}`}
+          {mutationError && (
+            <p className="rounded-xl bg-red-50 px-4 py-3 text-xs text-red-600">
+              {mutationError}
+            </p>
+          )}
+
+          <a href={`https://wa.me/234${(request.buyerWhatsapp ?? '').replace(/^0/, '')}`}
             target="_blank" rel="noopener noreferrer"
             className="flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-[#25D366] py-3 text-sm font-semibold text-white shadow-sm transition-opacity hover:opacity-90">
             <span>💬</span> Message Customer
