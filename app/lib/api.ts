@@ -47,6 +47,23 @@ export const api = {
       body: JSON.stringify({ status }),
     }),
 
+  // Upload
+  uploadFile: async (file: File): Promise<{ url: string }> => {
+    const formData = new FormData();
+    formData.append('file', file);
+    const res = await fetch(`${BASE}/upload`, { method: 'POST', body: formData });
+    const json = await res.json();
+    if (!res.ok) throw new Error(json?.message ?? 'Upload failed');
+    return json.data as { url: string };
+  },
+
+  // Submit inspection request
+  submitRequest: (body: SubmitRequestPayload) =>
+    request<{ orderId: string }>('/inspection-requests', {
+      method: 'POST',
+      body: JSON.stringify(body),
+    }),
+
   // Payment
   initiatePayment: (token: string) =>
     request<{ redirectUrl: string }>('/payment/initiate', {
@@ -54,6 +71,19 @@ export const api = {
       body: JSON.stringify({ token }),
     }),
 };
+
+export interface SubmitRequestPayload {
+  productLink?: string;
+  itemPrice: number;
+  comments?: string;
+  screenshotUrl?: string;
+  buyerFullName: string;
+  buyerWhatsapp: string;
+  buyerEmail: string;
+  sellerName: string;
+  sellerPhone: string;
+  sellerAddress: string;
+}
 
 // Local types mirroring the backend shape
 export interface InspectionRequest {
