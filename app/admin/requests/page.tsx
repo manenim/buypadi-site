@@ -32,6 +32,7 @@ export default function RequestsPage() {
   const [requests, setRequests] = useState<InspectionRequest[]>([]);
   const [invoices, setInvoices] = useState<Invoice[]>([]);
   const [loading, setLoading] = useState(true);
+  const [fetchError, setFetchError] = useState<string | null>(null);
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
 
@@ -40,6 +41,9 @@ export default function RequestsPage() {
       .then(([reqs, invs]) => {
         setRequests(reqs);
         setInvoices(invs);
+      })
+      .catch((err: Error) => {
+        setFetchError(err.message ?? 'Failed to load requests. Please refresh.');
       })
       .finally(() => setLoading(false));
   }, []);
@@ -69,6 +73,14 @@ export default function RequestsPage() {
     return (
       <div className="flex items-center justify-center py-32 text-sm text-muted">
         Loading requests…
+      </div>
+    );
+  }
+
+  if (fetchError) {
+    return (
+      <div className="flex items-center justify-center py-32 text-sm text-red-500">
+        {fetchError}
       </div>
     );
   }
@@ -144,7 +156,7 @@ export default function RequestsPage() {
                     <p className="font-mono text-xs font-bold text-primary">{request.orderId}</p>
                     <p className="mt-1 text-sm font-semibold text-heading">{request.buyerFullName}</p>
                   </div>
-                  <RequestStatusBadge status={request.status as any} />
+                  <RequestStatusBadge status={request.status} />
                 </div>
                 <p className="mt-3 text-sm font-medium text-copy">{request.productLink ?? '—'}</p>
                 <div className="mt-4 grid grid-cols-2 gap-3 text-xs">
@@ -229,7 +241,7 @@ export default function RequestsPage() {
                       )}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
-                      <RequestStatusBadge status={request.status as any} />
+                      <RequestStatusBadge status={request.status} />
                     </td>
                   </tr>
                 );

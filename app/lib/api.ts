@@ -1,3 +1,5 @@
+import type { InspectionStatus } from '@/app/lib/types';
+
 const BASE = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001';
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
@@ -57,7 +59,7 @@ export const api = {
 export interface InspectionRequest {
   id: string;
   orderId: string;
-  status: string;
+  status: InspectionStatus;
   productLink?: string;
   itemPrice: number;
   comments?: string;
