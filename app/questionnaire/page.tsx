@@ -183,7 +183,7 @@ export default function QuestionnairePage() {
                   Stop risking your money online.
                 </h1>
                 <p className="mt-4 text-sm leading-relaxed text-white/70 sm:text-base">
-                  Join the BuyPadi waitlist and be among the first to experience secure buying and selling with escrow protection, verified vendors, and controlled delivery.
+                  Join the BuyPadi waitlist and be among the first to experience secure buying and selling with verified vendors, and controlled delivery.
                 </p>
               </div>
               <div className="border-t border-white/10 px-6 py-6 sm:px-8">
