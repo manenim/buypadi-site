@@ -40,10 +40,10 @@ export default function FinalCTA() {
 
           <div className="flex flex-wrap gap-4">
             <Link
-              href="/request"
+              href="#waitlist"
               className="font-sans inline-flex items-center gap-2 bg-lime text-primary font-semibold text-lg px-8 py-4 rounded-full hover:bg-lime-dark transition-colors shadow-lg"
             >
-              Order Inspection
+              Join the waitlist
             </Link>
             <Link
               href="https://wa.me/2348026100848"

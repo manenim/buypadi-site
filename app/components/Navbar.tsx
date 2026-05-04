@@ -1,57 +1,3 @@
-// import Image from "next/image";
-// import Link from "next/link";
-
-// export default function Navbar() {
-//   return (
-//     <header className="sticky top-0 z-50 bg-white shadow-sm">
-//       <div className="max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between h-[72px]">
-//         {/* Logo */}
-//         <Link href="/" className="flex items-center gap-2">
-//           <Image
-//             src="/assets/buypadi-logo.png"
-//             alt="BuyPadi logo"
-//             width={120}
-//             height={36}
-//             className="object-contain h-9 w-auto"
-//           />
-//         </Link>
-
-//         {/* Nav links — hidden on mobile */}
-//         <nav className="hidden md:flex items-center gap-8">
-//           <Link
-//             href="#"
-//             className="font-display text-sm font-bold text-lime hover:opacity-80 transition-opacity"
-//           >
-//             Home
-//           </Link>
-//           <Link
-//             href="#how-it-works"
-//             className="font-display text-sm font-semibold text-copy hover:text-primary transition-colors"
-//           >
-//             How it Works
-//           </Link>
-//           <Link
-//             href="#benefits"
-//             className="font-display text-sm font-semibold text-copy hover:text-primary transition-colors"
-//           >
-//             Benefits
-//           </Link>
-//         </nav>
-
-//         {/* CTA buttons */}
-//         <div className="flex items-center gap-3">
-//           <Link
-//             href="/request"
-//             className="font-display inline-flex items-center gap-2 bg-lime text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-lime-dark transition-colors"
-//           >
-//             Request Inspection
-//           </Link>
-//         </div>
-//       </div>
-//     </header>
-//   );
-// }
-
 "use client";
 
 import Image from "next/image";
@@ -119,10 +65,10 @@ export default function Navbar() {
         <div className="flex items-center gap-3">
           {/* CTA — always visible */}
           <Link
-            href="/request"
+            href="/#waitlist"
             className="font-display hidden md:inline-flex items-center gap-2 bg-lime text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-lime-dark transition-colors"
           >
-            Request Inspection
+            Join waitlist
           </Link>
 
           {/* Hamburger button — mobile only */}
@@ -175,11 +121,11 @@ export default function Navbar() {
 
           {/* CTA repeated in drawer for convenience */}
           <Link
-            href="/request"
+            href="/#waitlist"
             onClick={() => setIsOpen(false)}
             className="font-display mt-6 inline-flex justify-center items-center gap-2 bg-lime text-white text-sm font-semibold px-5 py-3 rounded-full hover:bg-lime-dark transition-colors"
           >
-            Request Inspection
+            Join waitlist
           </Link>
         </nav>
       </div>

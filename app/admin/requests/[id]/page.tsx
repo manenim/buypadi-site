@@ -5,8 +5,7 @@ import { use, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { InvoiceStatusBadge, RequestStatusBadge } from '@/app/components/admin/StatusBadge';
 import ConfirmDialog from '@/app/components/admin/ConfirmDialog';
-import { api, type InspectionRequest, type Invoice, type CreateInvoicePayload } from '@/app/lib/api';
-import type { InspectionStatus } from '@/app/lib/types';
+import { api, getErrorMessage, type InspectionRequest, type Invoice, type CreateInvoicePayload } from '@/app/lib/api';
 
 // ─── Status config ────────────────────────────────────────────────────────────
 
@@ -167,8 +166,8 @@ export default function RequestDetailPage({ params }: { params: Promise<{ id: st
     try {
       const updated = await api.updateRequestStatus(request.orderId, status);
       setRequest(updated);
-    } catch (err: any) {
-      setMutationError(err.message ?? 'Failed to update status. Please try again.');
+    } catch (err: unknown) {
+      setMutationError(getErrorMessage(err, 'Failed to update status. Please try again.'));
     }
   }
 
@@ -178,12 +177,12 @@ export default function RequestDetailPage({ params }: { params: Promise<{ id: st
     try {
       const updated = await api.updateRequestStatus(request.orderId, request.status, name || undefined);
       setRequest(updated);
-    } catch (err: any) {
-      setMutationError(err.message ?? 'Failed to update inspector. Please try again.');
+    } catch (err: unknown) {
+      setMutationError(getErrorMessage(err, 'Failed to update inspector. Please try again.'));
     }
   }
 
-  async function handleSaveNotes(_notes: string) {
+  async function handleSaveNotes() {
     // internalNotes not yet a backend entity field; UI-only for now
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);
@@ -212,8 +211,8 @@ export default function RequestDetailPage({ params }: { params: Promise<{ id: st
       const newInvoice = await api.createInvoice(payload);
       setInvoice(newInvoice);
       setCreatingInvoice(false);
-    } catch (err: any) {
-      setMutationError(err.message ?? 'Failed to create invoice. Please try again.');
+    } catch (err: unknown) {
+      setMutationError(getErrorMessage(err, 'Failed to create invoice. Please try again.'));
     } finally {
       setSubmittingInvoice(false);
     }
@@ -312,7 +311,7 @@ export default function RequestDetailPage({ params }: { params: Promise<{ id: st
               </div>
               <div className="px-5 py-4">
                 <textarea rows={5} placeholder="Add internal notes visible only to admins…"
-                  onBlur={(e) => handleSaveNotes(e.target.value)}
+                  onBlur={() => handleSaveNotes()}
                   className="w-full resize-none rounded-xl border border-surface-alt bg-surface px-4 py-3 text-sm text-heading placeholder:text-subtle transition-colors focus:border-lime focus:outline-none" />
                 <p className="mt-1 text-xs text-subtle">Not yet persisted to backend</p>
               </div>

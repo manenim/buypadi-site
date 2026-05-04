@@ -5,7 +5,7 @@ import { use, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { InvoiceStatusBadge } from '@/app/components/admin/StatusBadge';
 import ConfirmDialog from '@/app/components/admin/ConfirmDialog';
-import { api, type Invoice } from '@/app/lib/api';
+import { api, getErrorMessage, type Invoice } from '@/app/lib/api';
 
 function formatNaira(n: number) {
   return `₦${Number(n).toLocaleString('en-NG')}`;
@@ -40,8 +40,8 @@ export default function AdminInvoicePage({ params }: { params: Promise<{ id: str
     try {
       const updated = await api.updateInvoiceStatus(invoice.id, status);
       setInvoice(updated);
-    } catch (err: any) {
-      setMutationError(err.message ?? 'Failed to update status. Please try again.');
+    } catch (err: unknown) {
+      setMutationError(getErrorMessage(err, 'Failed to update status. Please try again.'));
     }
   }
 

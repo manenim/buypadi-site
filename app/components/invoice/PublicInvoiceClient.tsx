@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import Footer from '@/app/components/Footer';
 import Navbar from '@/app/components/Navbar';
-import { api, type Invoice } from '@/app/lib/api';
+import { api, getErrorMessage, type Invoice } from '@/app/lib/api';
 
 function formatNaira(n: number) {
   return `₦${Number(n).toLocaleString('en-NG')}`;
@@ -66,8 +66,8 @@ export default function PublicInvoiceClient({ token }: { token: string }) {
     try {
       const { redirectUrl } = await api.initiatePayment(invoice.token);
       window.location.href = redirectUrl;
-    } catch (err: any) {
-      setPayError(err.message ?? 'Payment could not be started. Please try again.');
+    } catch (err: unknown) {
+      setPayError(getErrorMessage(err, 'Payment could not be started. Please try again.'));
       setPaying(false);
     }
   }

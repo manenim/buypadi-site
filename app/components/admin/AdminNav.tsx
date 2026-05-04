@@ -6,13 +6,15 @@ import { usePathname } from 'next/navigation';
 const NAV_ITEMS = [
   { href: '/admin', label: 'Dashboard', exact: true },
   { href: '/admin/requests', label: 'Requests', exact: false },
+  { href: '/admin/questionnaire', label: 'Questionnaire', exact: false },
+  { href: '/admin/waitlist', label: 'Waitlist', exact: false },
 ];
 
 export default function AdminNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="flex gap-2">
+    <nav className="flex gap-2 overflow-x-auto pb-1">
       {NAV_ITEMS.map(({ href, label, exact }) => {
         const active = exact ? pathname === href : pathname === href || pathname.startsWith(`${href}/`);
         return (

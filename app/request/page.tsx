@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useRef, useState } from 'react';
 import Footer from '@/app/components/Footer';
 import Navbar from '@/app/components/Navbar';
-import { api, type SubmitRequestPayload } from '@/app/lib/api';
+import { api, getErrorMessage, type SubmitRequestPayload } from '@/app/lib/api';
 
 const inputClass =
   'w-full bg-surface-alt border border-transparent rounded-xl px-4 py-3 text-sm text-heading placeholder:text-subtle focus:outline-none focus:border-lime focus:bg-white transition-colors';
@@ -108,10 +108,10 @@ export default function RequestPage() {
       clearInterval(interval);
       setUploadProgress(100);
       setUploadedUrl(result.url);
-    } catch (err: any) {
+    } catch (err: unknown) {
       clearInterval(interval);
       setUploadProgress(0);
-      setUploadError(err.message ?? 'Upload failed. Try another image.');
+      setUploadError(getErrorMessage(err, 'Upload failed. Try another image.'));
     } finally {
       setIsUploading(false);
     }
@@ -174,8 +174,8 @@ export default function RequestPage() {
       };
       const res = await api.submitRequest(payload);
       setOrderId(res.orderId);
-    } catch (err: any) {
-      setSubmitError(err.message ?? 'Submission failed. Please try again.');
+    } catch (err: unknown) {
+      setSubmitError(getErrorMessage(err, 'Submission failed. Please try again.'));
     } finally {
       setSubmitting(false);
     }
@@ -197,7 +197,7 @@ export default function RequestPage() {
             <div className="space-y-2">
               <h1 className="font-display text-3xl font-black text-heading">Request submitted!</h1>
               <p className="text-sm leading-relaxed text-copy">
-                Your inspection request is in. We'll reach out via WhatsApp or email with next steps.
+                Your inspection request is in. We&apos;ll reach out via WhatsApp or email with next steps.
               </p>
             </div>
             <div className="w-full rounded-2xl border border-surface-alt bg-white px-5 py-4 text-left">

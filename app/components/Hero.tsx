@@ -38,12 +38,12 @@ export default function Hero() {
             {/* CTAs */}
             <div className="flex flex-wrap gap-3 sm:gap-4 mt-2">
               <Link
-                href="/request"
+                href="#waitlist"
                 className="font-display inline-flex items-center bg-white text-primary
                            text-base font-bold px-6 py-3.5 rounded-full
                            shadow-lg hover:bg-gray-50 transition-colors"
               >
-                Request Inspection
+                Join the waitlist
               </Link>
               <Link
                 href="#how-it-works"

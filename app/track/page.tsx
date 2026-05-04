@@ -155,18 +155,25 @@ function EmptyState() {
 
 function TrackingView({ orderId }: { orderId: string }) {
   const router = useRouter();
-  const [request, setRequest] = useState<InspectionRequest | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [notFound, setNotFound] = useState(false);
+  const [requestState, setRequestState] = useState<{
+    orderId: string;
+    request: InspectionRequest | null;
+    notFound: boolean;
+  }>({ orderId: '', request: null, notFound: false });
   const [searchQuery, setSearchQuery] = useState(orderId);
 
   useEffect(() => {
-    setLoading(true);
-    setNotFound(false);
+    let cancelled = false;
     api.getRequest(orderId)
-      .then(setRequest)
-      .catch(() => setNotFound(true))
-      .finally(() => setLoading(false));
+      .then((request) => {
+        if (!cancelled) setRequestState({ orderId, request, notFound: false });
+      })
+      .catch(() => {
+        if (!cancelled) setRequestState({ orderId, request: null, notFound: true });
+      });
+    return () => {
+      cancelled = true;
+    };
   }, [orderId]);
 
   function handleSearch(e: React.FormEvent) {
@@ -175,6 +182,9 @@ function TrackingView({ orderId }: { orderId: string }) {
     if (trimmed && trimmed !== orderId) router.push(`/track?orderid=${trimmed}`);
   }
 
+  const loading = requestState.orderId !== orderId;
+  const request = loading ? null : requestState.request;
+  const notFound = loading ? false : requestState.notFound;
   const isCancelled = request?.status === 'cancelled';
 
   return (
@@ -218,7 +228,7 @@ function TrackingView({ orderId }: { orderId: string }) {
               <div>
                 <p className="font-display font-bold text-heading">Order not found</p>
                 <p className="mt-1 text-sm text-muted">
-                  We couldn't find order <span className="font-semibold text-heading">{orderId}</span>. Double-check the ID and try again.
+                  We couldn&apos;t find order <span className="font-semibold text-heading">{orderId}</span>. Double-check the ID and try again.
                 </p>
               </div>
             </div>
