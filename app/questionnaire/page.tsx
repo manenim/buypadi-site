@@ -189,7 +189,7 @@ export default function QuestionnairePage() {
               <div className="border-t border-white/10 px-6 py-6 sm:px-8">
                 <p className="text-sm font-bold text-white">Early users get</p>
                 <div className="mt-4 space-y-3">
-                  {['0% fees on first transaction (limited)', 'Priority access at launch', 'Exclusive trust badge for sellers', 'Sharper launch priorities from your answers'].map((item) => (
+                  {['Priority access at launch', 'Exclusive trust badge for sellers', 'Sharper launch priorities from your answers'].map((item) => (
                     <div key={item} className="flex gap-3">
                       <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-lime text-primary">
                         <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
