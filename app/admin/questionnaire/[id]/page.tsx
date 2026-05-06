@@ -69,8 +69,6 @@ export default function AdminQuestionnaireDetailPage({ params }: { params: Promi
     try {
       const updated = await api.updateQuestionnaireResponse(response.id, {
         leadStatus: String(formData.get('leadStatus')) as QuestionnaireLeadStatus,
-        freeInspectionCredits: Number(formData.get('freeInspectionCredits') ?? 0),
-        freeDeliveryCredits: Number(formData.get('freeDeliveryCredits') ?? 0),
         adminNotes: String(formData.get('adminNotes') ?? ''),
       });
       setResponse(updated);
@@ -154,29 +152,6 @@ export default function AdminQuestionnaireDetailPage({ params }: { params: Promi
                 <option key={status.value} value={status.value}>{status.label}</option>
               ))}
             </select>
-
-            <div className="mt-4 grid grid-cols-2 gap-3">
-              <div>
-                <label className="block text-xs font-semibold uppercase tracking-wide text-muted">Inspection credits</label>
-                <input
-                  name="freeInspectionCredits"
-                  type="number"
-                  min="0"
-                  defaultValue={response.freeInspectionCredits}
-                  className="mt-2 min-h-11 w-full rounded-xl border border-surface-alt bg-surface px-3 text-sm font-medium text-heading focus:border-lime focus:outline-none"
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-semibold uppercase tracking-wide text-muted">Delivery credits</label>
-                <input
-                  name="freeDeliveryCredits"
-                  type="number"
-                  min="0"
-                  defaultValue={response.freeDeliveryCredits}
-                  className="mt-2 min-h-11 w-full rounded-xl border border-surface-alt bg-surface px-3 text-sm font-medium text-heading focus:border-lime focus:outline-none"
-                />
-              </div>
-            </div>
 
             <label className="mt-4 block text-xs font-semibold uppercase tracking-wide text-muted">Admin notes</label>
             <textarea

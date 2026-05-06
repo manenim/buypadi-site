@@ -59,10 +59,6 @@ export default function AdminQuestionnairePage() {
     );
   }, [responses, search]);
 
-  const rewardOutstanding = responses.filter(
-    (response) => response.freeInspectionCredits > 0 || response.freeDeliveryCredits > 0,
-  ).length;
-
   if (loading) return <div className="flex items-center justify-center py-32 text-sm text-muted">Loading questionnaire responses...</div>;
   if (fetchError) return <div className="flex items-center justify-center py-32 text-sm text-red-500">{fetchError}</div>;
 
@@ -72,7 +68,7 @@ export default function AdminQuestionnairePage() {
         <div>
           <h1 className="font-display text-2xl font-bold text-heading sm:text-3xl">Questionnaire Responses</h1>
           <p className="mt-1 text-sm text-muted">
-            {filtered.length} of {responses.length} responses. {rewardOutstanding} with reward credits left.
+            {filtered.length} of {responses.length} responses
           </p>
         </div>
         <Link
@@ -101,7 +97,7 @@ export default function AdminQuestionnairePage() {
             <table className="w-full text-sm">
               <thead className="border-b border-surface-alt bg-surface text-left">
                 <tr>
-                  {['Name', 'Type', 'Platform', 'Likelihood', 'Rewards', 'Status', 'Date'].map((h) => (
+                  {['Name', 'Type', 'Platform', 'Likelihood', 'Status', 'Date'].map((h) => (
                     <th key={h} className="whitespace-nowrap px-4 py-3 text-xs font-semibold uppercase tracking-wide text-muted">
                       {h}
                     </th>
@@ -120,9 +116,6 @@ export default function AdminQuestionnairePage() {
                     <td className="whitespace-nowrap px-4 py-3 capitalize text-copy">{response.userType}</td>
                     <td className="whitespace-nowrap px-4 py-3 text-copy">{response.currentPlatform}</td>
                     <td className="whitespace-nowrap px-4 py-3 text-copy">{response.likelihoodToUse}</td>
-                    <td className="whitespace-nowrap px-4 py-3 text-xs text-copy">
-                      {response.freeInspectionCredits} inspection / {response.freeDeliveryCredits} delivery
-                    </td>
                     <td className="whitespace-nowrap px-4 py-3">
                       <LeadStatusBadge status={response.leadStatus} />
                     </td>

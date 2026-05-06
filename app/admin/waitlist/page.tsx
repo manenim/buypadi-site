@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import { api, type WaitlistEntry, type WaitlistStatus } from '@/app/lib/api';
+import { api, type WaitlistAdminUpdatePayload, type WaitlistEntry, type WaitlistStatus } from '@/app/lib/api';
 
 const STATUS_OPTIONS: { value: WaitlistStatus; label: string }[] = [
   { value: 'new', label: 'New' },
@@ -41,10 +41,10 @@ export default function AdminWaitlistPage() {
     );
   }, [entries, search]);
 
-  async function updateStatus(entry: WaitlistEntry, status: WaitlistStatus) {
+  async function updateEntry(entry: WaitlistEntry, body: WaitlistAdminUpdatePayload) {
     setSavingId(entry.id);
     try {
-      const updated = await api.updateWaitlistEntry(entry.id, { status });
+      const updated = await api.updateWaitlistEntry(entry.id, body);
       setEntries((current) => current.map((item) => item.id === updated.id ? updated : item));
     } finally {
       setSavingId(null);
@@ -58,7 +58,9 @@ export default function AdminWaitlistPage() {
     <div className="flex flex-col gap-5 sm:gap-6">
       <div>
         <h1 className="font-display text-2xl font-bold text-heading sm:text-3xl">Waitlist</h1>
-        <p className="mt-1 text-sm text-muted">{filtered.length} of {entries.length} entries</p>
+        <p className="mt-1 text-sm text-muted">
+          {filtered.length} of {entries.length} entries. Rewards are attached to waitlist submissions.
+        </p>
       </div>
 
       <div className="rounded-[1.75rem] bg-white p-4 shadow-sm sm:p-5">
@@ -78,7 +80,7 @@ export default function AdminWaitlistPage() {
             <table className="w-full text-sm">
               <thead className="border-b border-surface-alt bg-surface text-left">
                 <tr>
-                  {['Name', 'Email', 'Phone', 'Status', 'Date'].map((h) => (
+                  {['Name', 'Email', 'Phone', 'Rewards', 'Status', 'Date'].map((h) => (
                     <th key={h} className="whitespace-nowrap px-4 py-3 text-xs font-semibold uppercase tracking-wide text-muted">
                       {h}
                     </th>
@@ -94,10 +96,36 @@ export default function AdminWaitlistPage() {
                     </td>
                     <td className="whitespace-nowrap px-4 py-3 text-copy">{entry.phoneNumber}</td>
                     <td className="whitespace-nowrap px-4 py-3">
+                      <div className="flex gap-2">
+                        <label className="flex items-center gap-1 text-xs text-muted">
+                          <span>Inspection</span>
+                          <input
+                            type="number"
+                            min="0"
+                            defaultValue={entry.freeInspectionCredits ?? 0}
+                            disabled={savingId === entry.id}
+                            onBlur={(e) => updateEntry(entry, { freeInspectionCredits: Number(e.target.value) })}
+                            className="h-9 w-16 rounded-lg border border-surface-alt bg-surface px-2 text-xs font-semibold text-heading focus:border-lime focus:outline-none disabled:opacity-60"
+                          />
+                        </label>
+                        <label className="flex items-center gap-1 text-xs text-muted">
+                          <span>Delivery</span>
+                          <input
+                            type="number"
+                            min="0"
+                            defaultValue={entry.freeDeliveryCredits ?? 0}
+                            disabled={savingId === entry.id}
+                            onBlur={(e) => updateEntry(entry, { freeDeliveryCredits: Number(e.target.value) })}
+                            className="h-9 w-16 rounded-lg border border-surface-alt bg-surface px-2 text-xs font-semibold text-heading focus:border-lime focus:outline-none disabled:opacity-60"
+                          />
+                        </label>
+                      </div>
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-3">
                       <select
                         value={entry.status}
                         disabled={savingId === entry.id}
-                        onChange={(e) => updateStatus(entry, e.target.value as WaitlistStatus)}
+                        onChange={(e) => updateEntry(entry, { status: e.target.value as WaitlistStatus })}
                         className="min-h-10 rounded-xl border border-surface-alt bg-surface px-3 text-xs font-semibold capitalize text-heading focus:border-lime focus:outline-none disabled:opacity-60"
                       >
                         {STATUS_OPTIONS.map((status) => (

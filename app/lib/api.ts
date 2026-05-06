@@ -203,8 +203,6 @@ export interface QuestionnairePayload {
 export interface QuestionnaireResponse extends QuestionnairePayload {
   id: string;
   leadStatus: QuestionnaireLeadStatus;
-  freeInspectionCredits: number;
-  freeDeliveryCredits: number;
   adminNotes?: string | null;
   createdAt: string;
   updatedAt: string;
@@ -212,8 +210,6 @@ export interface QuestionnaireResponse extends QuestionnairePayload {
 
 export interface QuestionnaireAdminUpdatePayload {
   leadStatus?: QuestionnaireLeadStatus;
-  freeInspectionCredits?: number;
-  freeDeliveryCredits?: number;
   adminNotes?: string;
 }
 
@@ -228,6 +224,8 @@ export interface WaitlistPayload {
 export interface WaitlistEntry extends WaitlistPayload {
   id: string;
   status: WaitlistStatus;
+  freeInspectionCredits: number;
+  freeDeliveryCredits: number;
   adminNotes?: string | null;
   createdAt: string;
   updatedAt: string;
@@ -235,5 +233,7 @@ export interface WaitlistEntry extends WaitlistPayload {
 
 export interface WaitlistAdminUpdatePayload {
   status?: WaitlistStatus;
+  freeInspectionCredits?: number;
+  freeDeliveryCredits?: number;
   adminNotes?: string;
 }

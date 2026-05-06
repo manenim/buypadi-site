@@ -17,7 +17,7 @@ export default function QuestionnaireSuccessPage() {
               Thanks for helping shape BuyPadi.
             </h1>
             <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/70 sm:text-lg">
-              Your response has been received. We have reserved your early-user reward so your first inspection and delivery can be tracked from the admin console.
+              Your response has been received. Thanks for giving us the context we need to build a safer buying and selling experience.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
@@ -45,7 +45,7 @@ export default function QuestionnaireSuccessPage() {
             <div className="mt-5 space-y-4">
               {[
                 'We review early responses to prioritize launch access.',
-                'Your reward credits stay linked to your phone number.',
+                'We connect your feedback with the waitlist details you submitted.',
                 'We will reach out when the early access batch opens.',
               ].map((item, index) => (
                 <div key={item} className="flex gap-3">

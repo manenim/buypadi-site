@@ -178,18 +178,18 @@ export default function QuestionnairePage() {
           <aside className="lg:sticky lg:top-28">
             <div className="overflow-hidden rounded-[2rem] bg-primary text-white shadow-sm">
               <div className="px-6 py-8 sm:px-8">
-                <p className="text-xs font-bold uppercase tracking-[0.24em] text-lime">BuyPadi waitlist</p>
+                <p className="text-xs font-bold uppercase tracking-[0.24em] text-lime">BuyPadi Questionnaire</p>
                 <h1 className="mt-4 font-display text-3xl font-black leading-tight sm:text-4xl">
                   Stop risking your money online.
                 </h1>
                 <p className="mt-4 text-sm leading-relaxed text-white/70 sm:text-base">
-                  Join the BuyPadi waitlist and be among the first to experience secure buying and selling with verified vendors, and controlled delivery.
+                    Answer a few questions to help us build a safer buying experience for you and your friends.
                 </p>
               </div>
               <div className="border-t border-white/10 px-6 py-6 sm:px-8">
                 <p className="text-sm font-bold text-white">Early users get</p>
                 <div className="mt-4 space-y-3">
-                  {['0% fees on first transaction (limited)', 'Priority access at launch', 'Exclusive trust badge for sellers', 'First inspection and delivery reward tracking'].map((item) => (
+                  {['0% fees on first transaction (limited)', 'Priority access at launch', 'Exclusive trust badge for sellers', 'Sharper launch priorities from your answers'].map((item) => (
                     <div key={item} className="flex gap-3">
                       <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-lime text-primary">
                         <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
