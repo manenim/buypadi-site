@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import Footer from '@/app/components/Footer';
 import Navbar from '@/app/components/Navbar';
+import Skeleton from '@/app/components/Skeleton';
 import { api, getErrorMessage, type Invoice } from '@/app/lib/api';
 
 function formatNaira(n: number | string) {
@@ -59,6 +60,96 @@ export function InvoiceNotFound({
           )}
         </p>
       </div>
+    </div>
+  );
+}
+
+/**
+ * Loading skeleton that mirrors <InvoiceDocument>: the header text, the white
+ * invoice card (green banner + bill-to/details + line-item rows + total + pay
+ * button) and the "Need help?" card — so the layout doesn't shift when the real
+ * invoice arrives.
+ */
+export function InvoiceDocumentSkeleton() {
+  return (
+    <div
+      aria-busy="true"
+      aria-live="polite"
+      className="mx-auto flex max-w-5xl flex-col gap-6"
+    >
+      <span className="sr-only">Loading invoice…</span>
+
+      {/* Header text */}
+      <div className="space-y-3">
+        <Skeleton className="h-3 w-32" />
+        <Skeleton className="h-9 w-80 max-w-full rounded-xl" />
+        <Skeleton className="h-4 w-full max-w-2xl" />
+      </div>
+
+      {/* Invoice card */}
+      <section className="overflow-hidden rounded-[2rem] bg-white shadow-sm">
+        {/* Green banner */}
+        <div className="bg-primary px-5 py-6 sm:px-8 sm:py-8">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+            <div className="space-y-2.5">
+              <Skeleton className="h-3 w-16" />
+              <Skeleton className="h-7 w-48" />
+              <Skeleton className="h-4 w-28" />
+            </div>
+            <div className="flex flex-col items-start gap-3 lg:items-end">
+              <Skeleton className="h-9 w-24 rounded-full" />
+              <Skeleton className="h-3 w-32" />
+            </div>
+          </div>
+        </div>
+
+        {/* Bill to / document details */}
+        <div className="grid gap-5 border-b border-surface-alt px-5 py-5 sm:grid-cols-2 sm:px-8">
+          <div className="space-y-2.5">
+            <Skeleton className="h-3 w-16" />
+            <Skeleton className="h-4 w-40" />
+            <Skeleton className="h-4 w-32" />
+          </div>
+          <div className="space-y-2.5">
+            <Skeleton className="h-3 w-28" />
+            <Skeleton className="h-4 w-full max-w-56" />
+          </div>
+        </div>
+
+        {/* Line items + total */}
+        <div className="px-5 py-6 sm:px-8">
+          <div className="space-y-5">
+            {Array.from({ length: 3 }).map((_, i) => (
+              <div key={i} className="flex items-start justify-between gap-4">
+                <div className="flex-1 space-y-2">
+                  <Skeleton className="h-4 w-32" />
+                  <Skeleton className="h-3 w-52 max-w-full" />
+                </div>
+                <Skeleton className="h-4 w-20" />
+              </div>
+            ))}
+            <div className="flex items-center justify-between border-t-2 border-surface-alt pt-4">
+              <Skeleton className="h-5 w-16" />
+              <Skeleton className="h-7 w-28" />
+            </div>
+          </div>
+        </div>
+
+        {/* Pay button */}
+        <div className="px-5 py-6 sm:px-8 sm:pb-8">
+          <Skeleton className="h-14 w-full rounded-2xl" />
+        </div>
+      </section>
+
+      {/* Need help card */}
+      <section className="rounded-[1.75rem] bg-white px-5 py-5 shadow-sm sm:px-6">
+        <Skeleton className="h-3 w-24" />
+        <Skeleton className="mt-3 h-4 w-full max-w-md" />
+        <div className="mt-4 flex flex-col gap-3 sm:flex-row">
+          <Skeleton className="h-12 w-full rounded-full sm:w-48" />
+          <Skeleton className="h-12 w-full rounded-full sm:w-40" />
+        </div>
+      </section>
     </div>
   );
 }
@@ -370,10 +461,7 @@ export default function PublicInvoiceClient({ token }: { token: string }) {
       <Navbar />
       <main className="flex-1 px-4 py-8 sm:px-6 sm:py-10 lg:px-12">
         {invoice === undefined ? (
-          <div className="mx-auto max-w-5xl">
-            <div className="h-8 w-48 animate-pulse rounded-xl bg-white shadow-sm" />
-            <div className="mt-6 h-[32rem] animate-pulse rounded-[2rem] bg-white shadow-sm" />
-          </div>
+          <InvoiceDocumentSkeleton />
         ) : invoice ? (
           <InvoiceDocument
             invoice={invoice}

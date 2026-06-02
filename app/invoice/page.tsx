@@ -8,6 +8,7 @@ import Navbar from '@/app/components/Navbar';
 import Spinner from '@/app/components/Spinner';
 import {
   InvoiceDocument,
+  InvoiceDocumentSkeleton,
   InvoiceNotFound,
 } from '@/app/components/invoice/PublicInvoiceClient';
 import { api, getErrorMessage, type Invoice } from '@/app/lib/api';
@@ -176,10 +177,7 @@ function InvoiceLookupView({ invoiceCode }: { invoiceCode: string }) {
         </div>
 
         {loading ? (
-          <div className="mx-auto max-w-5xl">
-            <div className="h-8 w-48 animate-pulse rounded-xl bg-white shadow-sm" />
-            <div className="mt-6 h-[32rem] animate-pulse rounded-[2rem] bg-white shadow-sm" />
-          </div>
+          <InvoiceDocumentSkeleton />
         ) : invoiceState.notFound ? (
           <InvoiceNotFound invoiceCode={invoiceCode} />
         ) : invoiceState.invoice ? (
