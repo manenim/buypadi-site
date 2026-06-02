@@ -184,7 +184,7 @@ export default function PaymentConfirmationPage({
     verifying: {
       eyebrow: 'Payment verification',
       title: 'Confirming your payment',
-      body: 'We are checking the payment update from Accelerate. This usually takes a few seconds.',
+      body: 'We are checking the payment update from the provider. This usually takes a few seconds.',
     },
     successful: {
       eyebrow: 'Payment confirmed',

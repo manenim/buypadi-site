@@ -2,8 +2,24 @@ import type { InspectionStatus } from './types';
 
 const BASE = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001/api';
 
+export class ApiError extends Error {
+  status: number;
+  body: unknown;
+
+  constructor(message: string, status: number, body: unknown) {
+    super(message);
+    this.name = 'ApiError';
+    this.status = status;
+    this.body = body;
+  }
+}
+
 export function getErrorMessage(err: unknown, fallback: string) {
   return err instanceof Error && err.message ? err.message : fallback;
+}
+
+export function isNotFoundError(err: unknown) {
+  return err instanceof ApiError && err.status === 404;
 }
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
@@ -11,9 +27,13 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
     headers: { 'Content-Type': 'application/json', ...init?.headers },
     ...init,
   });
-  const json = await res.json();
+  const json = await res.json().catch(() => null);
   if (!res.ok) {
-    throw new Error(json?.message ?? `Request failed: ${res.status}`);
+    throw new ApiError(
+      json?.message ?? `Request failed: ${res.status}`,
+      res.status,
+      json,
+    );
   }
   return json.data as T;
 }

@@ -3,6 +3,7 @@
 
 import { use, useEffect, useState, type ReactNode } from 'react';
 import Link from 'next/link';
+import AdminNotFoundState from '@/app/components/admin/AdminNotFoundState';
 import ConfirmDialog from '@/app/components/admin/ConfirmDialog';
 import Spinner from '@/app/components/Spinner';
 import {
@@ -12,6 +13,7 @@ import {
 import {
   api,
   getErrorMessage,
+  isNotFoundError,
   type CreateInvoicePayload,
   type InspectionRequest,
   type Invoice,
@@ -705,6 +707,7 @@ export default function RequestDetailPage({
   const [invoice, setInvoice] = useState<Invoice | null>(null);
   const [loading, setLoading] = useState(true);
   const [fetchError, setFetchError] = useState<string | null>(null);
+  const [notFound, setNotFound] = useState(false);
   const [mutationError, setMutationError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [pendingStatus, setPendingStatus] = useState<InspectionStatus | null>(null);
@@ -727,6 +730,10 @@ export default function RequestDetailPage({
   const [uploadError, setUploadError] = useState<string | null>(null);
 
   useEffect(() => {
+    setLoading(true);
+    setFetchError(null);
+    setNotFound(false);
+
     Promise.all([api.getRequest(orderId), api.getInvoiceByRequest(orderId)])
       .then(([req, inv]) => {
         setRequest(req);
@@ -734,9 +741,14 @@ export default function RequestDetailPage({
         setInspectorName(req.assignedInspectorName ?? '');
         setItemPrice(String(Number(req.itemPrice) || ''));
       })
-      .catch((err: Error) =>
-        setFetchError(err.message ?? 'Failed to load request.'),
-      )
+      .catch((err: unknown) => {
+        if (isNotFoundError(err)) {
+          setNotFound(true);
+          return;
+        }
+
+        setFetchError(getErrorMessage(err, 'Failed to load request.'));
+      })
       .finally(() => setLoading(false));
   }, [orderId]);
 
@@ -840,6 +852,19 @@ export default function RequestDetailPage({
     return <Spinner label="Loading request…" className="py-32" />;
   }
 
+  if (notFound) {
+    return (
+      <AdminNotFoundState
+        eyebrow="Request lookup"
+        title="This inspection request is not in the queue."
+        message="The order ID may be wrong, the request may have been deleted, or you may be using an old admin link. Head back to the queue to continue from the current records."
+        resourceId={orderId}
+        primaryHref="/padi-admin/requests"
+        primaryLabel="Back to request queue"
+      />
+    );
+  }
+
   if (fetchError) {
     return (
       <div className="flex min-h-[28rem] items-center justify-center rounded-lg border border-red-100 bg-red-50 px-4 text-center text-sm font-medium text-red-600">
@@ -850,12 +875,14 @@ export default function RequestDetailPage({
 
   if (!request) {
     return (
-      <div className="flex items-center justify-center py-32 text-sm text-muted">
-        Request not found.
-        <Link href="/padi-admin/requests" className="ml-1 text-primary hover:underline">
-          Back to requests
-        </Link>
-      </div>
+      <AdminNotFoundState
+        eyebrow="Request lookup"
+        title="This inspection request is not in the queue."
+        message="The order ID may be wrong, the request may have been deleted, or you may be using an old admin link. Head back to the queue to continue from the current records."
+        resourceId={orderId}
+        primaryHref="/padi-admin/requests"
+        primaryLabel="Back to request queue"
+      />
     );
   }
 

@@ -3,8 +3,9 @@
 
 import { use, useEffect, useState, type ReactNode } from 'react';
 import Link from 'next/link';
+import AdminNotFoundState from '@/app/components/admin/AdminNotFoundState';
 import ConfirmDialog from '@/app/components/admin/ConfirmDialog';
-import Spinner from '@/app/components/Spinner';
+import Skeleton from '@/app/components/Skeleton';
 import {
   InvoiceStatusBadge,
   RequestStatusBadge,
@@ -12,6 +13,7 @@ import {
 import {
   api,
   getErrorMessage,
+  isNotFoundError,
   type InspectionRequest,
   type Invoice,
 } from '@/app/lib/api';
@@ -452,6 +454,71 @@ function TimelinePanel({ invoice }: { invoice: Invoice }) {
   );
 }
 
+// ─── Loading skeleton ────────────────────────────────────────────────────────
+
+/** Bordered card matching the `Panel` chrome, with skeleton header + body rows. */
+function SkeletonPanel({ bodyRows = 3 }: { bodyRows?: number }) {
+  return (
+    <section className="rounded-lg border border-surface-alt bg-white shadow-sm">
+      <div className="border-b border-surface-alt px-4 py-4 sm:px-5">
+        <Skeleton className="h-3 w-24" />
+        <Skeleton className="mt-2 h-5 w-44" />
+      </div>
+      <div className="space-y-4 px-4 py-4 sm:px-5">
+        {Array.from({ length: bodyRows }).map((_, i) => (
+          <div key={i} className="flex flex-col gap-2">
+            <Skeleton className="h-3 w-20" />
+            <Skeleton className="h-4 w-full max-w-xs" />
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/** Mirrors the AdminInvoicePage layout (header + two-column panel grid) while
+ *  the invoice loads, so the page doesn't jump when real data arrives. */
+function InvoiceSkeleton() {
+  return (
+    <div aria-busy="true" aria-live="polite" className="flex flex-col gap-6">
+      <span className="sr-only">Loading invoice…</span>
+
+      {/* Header */}
+      <div className="flex flex-col gap-4 xl:flex-row xl:items-end xl:justify-between">
+        <div className="flex flex-col gap-3">
+          <Skeleton className="h-4 w-36" />
+          <Skeleton className="h-3 w-28" />
+          <div className="flex flex-wrap items-center gap-3">
+            <Skeleton className="h-8 w-56 rounded-lg" />
+            <Skeleton className="h-6 w-20 rounded-full" />
+            <Skeleton className="h-6 w-24 rounded-full" />
+          </div>
+          <Skeleton className="h-4 w-full max-w-2xl" />
+          <Skeleton className="h-4 w-72 max-w-full" />
+        </div>
+        <div className="flex flex-col gap-2 sm:flex-row">
+          <Skeleton className="h-11 w-40 rounded-lg" />
+          <Skeleton className="h-11 w-32 rounded-lg" />
+        </div>
+      </div>
+
+      {/* Panel grid */}
+      <div className="grid gap-6 xl:grid-cols-[minmax(0,1.35fr)_minmax(22rem,0.75fr)]">
+        <div className="space-y-6">
+          <SkeletonPanel bodyRows={4} />
+          <SkeletonPanel bodyRows={3} />
+          <SkeletonPanel bodyRows={2} />
+        </div>
+        <div className="space-y-6">
+          <SkeletonPanel bodyRows={3} />
+          <SkeletonPanel bodyRows={3} />
+          <SkeletonPanel bodyRows={3} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function AdminInvoicePage({
   params,
 }: {
@@ -462,6 +529,7 @@ export default function AdminInvoicePage({
   const [request, setRequest] = useState<InspectionRequest | null>(null);
   const [loading, setLoading] = useState(true);
   const [fetchError, setFetchError] = useState<string | null>(null);
+  const [notFound, setNotFound] = useState(false);
   const [mutationError, setMutationError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [confirm, setConfirm] = useState<{ action: InvoiceAction } | null>(null);
@@ -473,6 +541,8 @@ export default function AdminInvoicePage({
 
     async function loadInvoice() {
       setLoading(true);
+      setFetchError(null);
+      setNotFound(false);
       try {
         const loadedInvoice = await api.getInvoice(id);
         if (cancelled) return;
@@ -486,6 +556,11 @@ export default function AdminInvoicePage({
         }
       } catch (err: unknown) {
         if (!cancelled) {
+          if (isNotFoundError(err)) {
+            setNotFound(true);
+            return;
+          }
+
           setFetchError(getErrorMessage(err, 'Failed to load invoice.'));
         }
       } finally {
@@ -539,7 +614,20 @@ export default function AdminInvoicePage({
   }
 
   if (loading) {
-    return <Spinner label="Loading invoice…" className="py-32" />;
+    return <InvoiceSkeleton />;
+  }
+
+  if (notFound) {
+    return (
+      <AdminNotFoundState
+        eyebrow="Invoice lookup"
+        title="This invoice record could not be found."
+        message="The invoice ID may be wrong, the invoice may have been removed, or the link may point to an old record. Return to the request queue to find the current invoice from its linked order."
+        resourceId={id}
+        primaryHref="/padi-admin/requests"
+        primaryLabel="Back to request queue"
+      />
+    );
   }
 
   if (fetchError) {
@@ -552,12 +640,14 @@ export default function AdminInvoicePage({
 
   if (!invoice) {
     return (
-      <div className="flex items-center justify-center py-32 text-sm text-muted">
-        Invoice not found.
-        <Link href="/padi-admin/requests" className="ml-1 text-primary hover:underline">
-          Back to requests
-        </Link>
-      </div>
+      <AdminNotFoundState
+        eyebrow="Invoice lookup"
+        title="This invoice record could not be found."
+        message="The invoice ID may be wrong, the invoice may have been removed, or the link may point to an old record. Return to the request queue to find the current invoice from its linked order."
+        resourceId={id}
+        primaryHref="/padi-admin/requests"
+        primaryLabel="Back to request queue"
+      />
     );
   }
 

@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState, Suspense } from 'react';
 import Footer from '@/app/components/Footer';
 import Navbar from '@/app/components/Navbar';
+import Skeleton from '@/app/components/Skeleton';
 import Spinner from '@/app/components/Spinner';
 import { api, type InspectionRequest } from '@/app/lib/api';
 import type { InspectionStatus } from '@/app/lib/types';
@@ -152,6 +153,77 @@ function EmptyState() {
   );
 }
 
+// ─── Loading skeleton ────────────────────────────────────────────────────────
+
+/** Mirrors the TrackingView layout (header + timeline + side cards) while the
+ *  request loads, so the page doesn't shift when real data arrives. */
+function TrackingSkeleton() {
+  return (
+    <div aria-busy="true" aria-live="polite">
+      <span className="sr-only">Loading order tracking…</span>
+
+      {/* Header */}
+      <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+        <div className="flex flex-col gap-3">
+          <Skeleton className="h-7 w-32 rounded-full" />
+          <Skeleton className="h-9 w-72 max-w-full rounded-xl" />
+          <Skeleton className="h-4 w-80 max-w-full" />
+        </div>
+        <div className="flex shrink-0 flex-col items-start gap-2 md:items-end">
+          <Skeleton className="h-3 w-24" />
+          <Skeleton className="h-9 w-40 rounded-full" />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 gap-5 lg:grid-cols-[1fr_320px]">
+        {/* Timeline card */}
+        <div className="rounded-[1.875rem] bg-white px-6 py-8 shadow-sm sm:px-8 lg:px-10">
+          <Skeleton className="mb-8 h-6 w-40 rounded-lg" />
+          <div className="relative flex flex-col">
+            <div className="absolute left-[17px] top-5 bottom-5 w-0.5 bg-surface-alt" />
+            {Array.from({ length: 5 }).map((_, i) => (
+              <div key={i} className={`flex gap-5 ${i === 4 ? '' : 'pb-8'}`}>
+                <Skeleton className="h-9 w-9 shrink-0 rounded-full" />
+                <div className="flex flex-col gap-2 pt-2">
+                  <Skeleton className="h-4 w-40" />
+                  <Skeleton className="h-3 w-56 max-w-full" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Side cards */}
+        <div className="flex flex-col gap-4">
+          {/* Item details */}
+          <div className="overflow-hidden rounded-[1.875rem] bg-white shadow-sm">
+            <Skeleton className="h-44 w-full rounded-none" />
+            <div className="flex flex-col gap-4 px-6 py-5">
+              <div className="flex flex-col gap-2">
+                <Skeleton className="h-3 w-12" />
+                <Skeleton className="h-5 w-full" />
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <Skeleton className="h-14 rounded-xl" />
+                <Skeleton className="h-14 rounded-xl" />
+              </div>
+            </div>
+          </div>
+
+          {/* Need help */}
+          <div className="flex items-center gap-4 rounded-[1.875rem] bg-white px-6 py-5 shadow-sm">
+            <Skeleton className="h-10 w-10 shrink-0 rounded-full" />
+            <div className="flex flex-1 flex-col gap-2">
+              <Skeleton className="h-4 w-24" />
+              <Skeleton className="h-3 w-40" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ─── Tracking view ───────────────────────────────────────────────────────────
 
 function TrackingView({ orderId }: { orderId: string }) {
@@ -212,13 +284,7 @@ function TrackingView({ orderId }: { orderId: string }) {
           </form>
 
           {loading ? (
-            <div className="flex flex-col gap-5">
-              <div className="h-8 w-48 animate-pulse rounded-xl bg-white shadow-sm" />
-              <div className="grid grid-cols-1 gap-5 lg:grid-cols-[1fr_320px]">
-                <div className="h-96 animate-pulse rounded-[1.875rem] bg-white shadow-sm" />
-                <div className="h-64 animate-pulse rounded-[1.875rem] bg-white shadow-sm" />
-              </div>
-            </div>
+            <TrackingSkeleton />
           ) : notFound ? (
             <div className="flex flex-col items-center gap-5 py-20 text-center">
               <div className="flex h-16 w-16 items-center justify-center rounded-full bg-red-50">
