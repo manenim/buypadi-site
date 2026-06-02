@@ -53,3 +53,23 @@
 @media (prefers-reduced-motion: reduce) {
   .bp-skeleton::after { animation: none; }
 }
+
+/* ── Auth entrance + ambient glow ─────────────── */
+@keyframes bp-rise {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.bp-rise { animation: bp-rise 0.65s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+
+@keyframes bp-breathe {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50%      { opacity: 0.8; transform: scale(1.06); }
+}
+
+.bp-breathe { animation: bp-breathe 7s ease-in-out infinite; transform-origin: center; }
+
+@media (prefers-reduced-motion: reduce) {
+  .bp-rise { animation: none; }
+  .bp-breathe { animation: none; }
+}
