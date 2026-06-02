@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Page not found — BuyPadi",
-  description: "We looked everywhere,  this page isn't here.",
+  description: "We looked everywhere, this page isn't here.",
 };
 
 /**
@@ -82,7 +82,7 @@ export default function NotFound() {
         </span>
 
         <h1 className="font-display w-full max-w-xl text-3xl font-extrabold leading-tight text-balance text-primary sm:text-4xl">
-          We looked everywhere — this page isn&apos;t here.
+          We looked everywhere, this page isn&apos;t here.
         </h1>
 
         <p className="w-full max-w-md text-base leading-relaxed text-pretty text-copy">
