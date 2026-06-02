@@ -41,6 +41,10 @@ export const api = {
   getInvoices: () => request<Invoice[]>('/invoices'),
   getInvoice: (id: string) => request<Invoice>(`/invoices/${id}`),
   getInvoiceByToken: (token: string) => request<Invoice>(`/invoices/by-token/${token}`),
+  getInvoiceByCode: (invoiceCode: string) =>
+    request<Invoice>(`/invoices/by-code/${encodeURIComponent(invoiceCode)}`),
+  getInvoiceByNumber: (invoiceNumber: string) =>
+    request<Invoice>(`/invoices/by-code/${encodeURIComponent(invoiceNumber)}`),
   getInvoiceByRequest: (requestId: string) =>
     request<Invoice | null>(`/invoices/by-request/${requestId}`),
   createInvoice: (body: CreateInvoicePayload) =>
@@ -74,6 +78,10 @@ export const api = {
       method: 'POST',
       body: JSON.stringify({ token }),
     }),
+  getPaymentStatus: (token: string) =>
+    request<PaymentStatusResponse>(
+      `/payment/status/${encodeURIComponent(token)}`,
+    ),
 
   // Questionnaire
   submitQuestionnaire: (body: QuestionnairePayload) =>
@@ -133,7 +141,7 @@ export interface InspectionRequest {
   sellerName: string;
   sellerPhone: string;
   sellerAddress: string;
-  assignedInspectorName?: string;
+  assignedInspectorName?: string | null;
   createdAt: string;
   updatedAt: string;
 }
@@ -145,6 +153,7 @@ export interface Invoice {
   requestId: string;
   orderId: string;
   status: 'unpaid' | 'paid';
+  itemPrice: number;
   inspectionFee: number;
   deliveryFee: number;
   total: number;
@@ -154,11 +163,20 @@ export interface Invoice {
   customerEmail?: string | null;
   customerWhatsapp: string;
   createdAt: string;
+  updatedAt: string;
+}
+
+export type PaymentVerificationStatus = 'pending' | 'successful' | 'failed';
+
+export interface PaymentStatusResponse {
+  paymentStatus: PaymentVerificationStatus;
+  invoice: Invoice;
 }
 
 export interface CreateInvoicePayload {
   requestId: string;
   orderId: string;
+  itemPrice: number;
   inspectionFee: number;
   deliveryFee: number;
   dueDate: string;

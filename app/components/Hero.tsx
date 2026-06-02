@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import BrandPattern from "./BrandPattern";
 
 export default function Hero() {
   return (
@@ -10,7 +11,12 @@ export default function Hero() {
                    w-full max-w-384 mx-auto px-6 sm:px-10 lg:px-14 flex flex-col items-center justify-center pb-0
                    min-h-[26rem] md:min-h-128 lg:min-h-136 my-auto py-20 md:py-10 lg:py-0"
       >
-        <div className="flex flex-col md:flex-row gap-8 md:gap-10 lg:gap-36 items-center">
+        {/* Decorative brand pattern, clipped to the rounded card */}
+        <div className="absolute inset-0 z-0 overflow-hidden rounded-[1.875rem]">
+          <BrandPattern variant="hero" />
+        </div>
+
+        <div className="relative z-10 flex flex-col md:flex-row gap-8 md:gap-10 lg:gap-36 items-center">
           {/* ── LEFT: text ── */}
           <div className="flex-1 flex flex-col gap-4 sm:gap-5 pb-8 lg:pb-16 z-10 relative w-full">
             {/* Badge */}

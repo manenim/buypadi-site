@@ -3,13 +3,14 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { api, getErrorMessage } from '@/app/lib/api';
+import BrandPattern from './BrandPattern';
 
 const inputClass =
   'min-h-13 w-full rounded-2xl border border-white/15 bg-white/10 px-4 text-sm font-medium text-white placeholder:text-white/45 outline-none transition-colors focus:border-lime focus:bg-white/15';
 
 function WaitlistSuccessPanel() {
   return (
-    <div className="bg-white/[0.07] px-6 py-8 sm:px-8 lg:px-12 lg:py-14">
+    <div className="relative z-10 bg-white/[0.07] px-6 py-8 sm:px-8 lg:px-12 lg:py-14">
       <div className="relative flex h-full min-h-90 overflow-hidden rounded-[1.75rem] border border-lime/20 bg-[#0B4A32] px-6 py-8 text-white shadow-[0_22px_70px_rgba(0,0,0,0.16)] sm:px-8 lg:px-10">
         <div className="absolute inset-x-0 top-0 h-px bg-lime/45" />
         <div className="absolute right-5 top-5 rounded-full border border-lime/25 px-3 py-1 text-[10px] font-black uppercase tracking-[0.22em] text-lime">
@@ -96,8 +97,9 @@ export default function WaitlistSection() {
 
   return (
     <section id="waitlist" className="bg-surface px-4 py-12 sm:px-6 lg:px-12 lg:py-16">
-      <div className="mx-auto grid max-w-384 overflow-hidden rounded-[2rem] bg-primary shadow-sm lg:grid-cols-[0.85fr_1.15fr]">
-        <div className="px-6 py-10 sm:px-8 lg:px-12 lg:py-14">
+      <div className="relative mx-auto grid max-w-384 overflow-hidden rounded-[2rem] bg-primary shadow-sm lg:grid-cols-[0.85fr_1.15fr]">
+        <BrandPattern variant="waitlist" />
+        <div className="relative z-10 px-6 py-10 sm:px-8 lg:px-12 lg:py-14">
           <p className="text-xs font-bold uppercase tracking-[0.24em] text-lime">Early access</p>
           <h2 className="mt-4 max-w-xl font-display text-3xl font-black leading-tight text-white sm:text-4xl lg:text-[3rem]">
             Join the BuyPadi waitlist.
@@ -117,7 +119,7 @@ export default function WaitlistSection() {
         {success ? (
           <WaitlistSuccessPanel />
         ) : (
-          <form onSubmit={handleSubmit} className="flex bg-white/[0.07] px-6 py-8 sm:px-8 lg:px-12 lg:py-10">
+          <form onSubmit={handleSubmit} className="relative z-10 flex bg-white/[0.07] px-6 py-8 sm:px-8 lg:px-12 lg:py-10">
             <div className="m-auto w-full max-w-4xl">
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="sm:col-span-2">

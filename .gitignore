@@ -42,3 +42,6 @@ AGENTS.md
 *.tsbuildinfo
 next-env.d.ts
 .aider*
+
+# brainstorming visual companion
+.superpowers/

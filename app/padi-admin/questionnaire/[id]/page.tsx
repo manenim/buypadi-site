@@ -3,6 +3,7 @@
 import { use, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { api, getErrorMessage, type QuestionnaireLeadStatus, type QuestionnaireResponse } from '@/app/lib/api';
+import Spinner from '@/app/components/Spinner';
 
 const STATUS_OPTIONS: { value: QuestionnaireLeadStatus; label: string }[] = [
   { value: 'new', label: 'New' },
@@ -79,14 +80,14 @@ export default function AdminQuestionnaireDetailPage({ params }: { params: Promi
     }
   }
 
-  if (loading) return <div className="flex items-center justify-center py-32 text-sm text-muted">Loading...</div>;
+  if (loading) return <Spinner label="Loading response…" className="py-32" />;
   if (fetchError) return <div className="flex items-center justify-center py-32 text-sm text-red-500">{fetchError}</div>;
   if (!response) return <div className="flex items-center justify-center py-32 text-sm text-muted">Response not found.</div>;
 
   return (
     <div className="flex flex-col gap-5 sm:gap-6">
       <div className="flex flex-col gap-1">
-        <Link href="/admin/questionnaire" className="inline-flex min-h-10 items-center text-xs text-muted transition-colors hover:text-primary sm:min-h-0">
+        <Link href="/padi-admin/questionnaire" className="inline-flex min-h-10 items-center text-xs text-muted transition-colors hover:text-primary sm:min-h-0">
           ← Questionnaire responses
         </Link>
         <h1 className="font-display text-2xl font-bold text-heading sm:text-3xl">{response.fullName}</h1>

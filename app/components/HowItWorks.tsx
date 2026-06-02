@@ -1,3 +1,5 @@
+import BrandPattern from "./BrandPattern";
+
 const steps = [
   {
     number: "01",
@@ -33,9 +35,11 @@ export default function HowItWorks() {
   return (
     <section id="how-it-works" className="bg-surface px-4 sm:px-6 lg:px-12 py-6">
       {/* Rounded dark-green card — same max-width as all other content sections */}
-      <div className="max-w-384 mx-auto bg-primary rounded-3xl overflow-hidden px-6 lg:px-14 py-20">
+      <div className="relative max-w-384 mx-auto bg-primary rounded-3xl overflow-hidden px-6 lg:px-14 py-20">
+        <BrandPattern variant="how" />
+
         {/* Heading */}
-        <div className="text-center mb-14">
+        <div className="relative z-10 text-center mb-14">
           <h2 className="font-display text-4xl lg:text-[48px] font-extrabold text-white mb-4">
             Inspect.{" "}
             <span className="text-lime">Validate.</span>{" "}
@@ -47,7 +51,7 @@ export default function HowItWorks() {
         </div>
 
         {/* Steps grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {steps.map((step) => (
             <div
               key={step.number}

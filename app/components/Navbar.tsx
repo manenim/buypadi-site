@@ -2,10 +2,12 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
 
   // Close menu on route change / resize to desktop
   useEffect(() => {
@@ -25,10 +27,14 @@ export default function Navbar() {
   }, [isOpen]);
 
   const navLinks = [
-    { href: "#", label: "Home", active: true },
-    { href: "#how-it-works", label: "How it Works" },
-    { href: "#benefits", label: "Benefits" },
+    { href: "/", label: "Home" },
+    { href: "/request", label: "Request Inspection" },
+    { href: "/track", label: "Track Orders" },
+    { href: "/invoice", label: "Find Invoice" },
   ];
+
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
     <header className="sticky top-0 z-50 bg-white shadow-sm">
@@ -46,12 +52,12 @@ export default function Navbar() {
 
         {/* Nav links — hidden on mobile */}
         <nav className="hidden md:flex items-center gap-8">
-          {navLinks.map(({ href, label, active }) => (
+          {navLinks.map(({ href, label }) => (
             <Link
               key={label}
               href={href}
               className={`font-display text-sm font-bold transition-colors ${
-                active
+                isActive(href)
                   ? "text-lime hover:opacity-80"
                   : "font-semibold text-copy hover:text-primary"
               }`}
@@ -65,10 +71,10 @@ export default function Navbar() {
         <div className="flex items-center gap-3">
           {/* CTA — always visible */}
           <Link
-            href="/#waitlist"
+            href="/request"
             className="font-display hidden md:inline-flex items-center gap-2 bg-lime text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-lime-dark transition-colors"
           >
-            Join waitlist
+            Request inspection
           </Link>
 
           {/* Hamburger button — mobile only */}
@@ -106,13 +112,13 @@ export default function Navbar() {
         }`}
       >
         <nav className="flex flex-col px-6 pt-6 pb-8 gap-1">
-          {navLinks.map(({ href, label, active }) => (
+          {navLinks.map(({ href, label }) => (
             <Link
               key={label}
               href={href}
               onClick={() => setIsOpen(false)}
               className={`font-display text-base font-semibold py-3 border-b border-gray-100 transition-colors ${
-                active ? "text-lime" : "text-copy hover:text-primary"
+                isActive(href) ? "text-lime" : "text-copy hover:text-primary"
               }`}
             >
               {label}
@@ -121,11 +127,11 @@ export default function Navbar() {
 
           {/* CTA repeated in drawer for convenience */}
           <Link
-            href="/#waitlist"
+            href="/request"
             onClick={() => setIsOpen(false)}
             className="font-display mt-6 inline-flex justify-center items-center gap-2 bg-lime text-white text-sm font-semibold px-5 py-3 rounded-full hover:bg-lime-dark transition-colors"
           >
-            Join waitlist
+            Request inspection
           </Link>
         </nav>
       </div>

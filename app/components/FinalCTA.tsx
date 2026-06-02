@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import BrandPattern from "./BrandPattern";
 
 export default function FinalCTA() {
   return (
@@ -17,6 +18,8 @@ export default function FinalCTA() {
       </div>
 
       <div className="max-w-350 mx-auto bg-primary rounded-3xl px-8 lg:px-16 py-16 lg:py-20 relative z-10 overflow-hidden">
+        <BrandPattern variant="cta" />
+
         {/* Shield icon — large faint decorative element, right side of card */}
         <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/4 w-64 lg:w-80 opacity-20 pointer-events-none select-none">
           <Image

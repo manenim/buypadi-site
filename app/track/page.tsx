@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState, Suspense } from 'react';
 import Footer from '@/app/components/Footer';
 import Navbar from '@/app/components/Navbar';
+import Spinner from '@/app/components/Spinner';
 import { api, type InspectionRequest } from '@/app/lib/api';
 import type { InspectionStatus } from '@/app/lib/types';
 
@@ -395,7 +396,7 @@ export default function TrackPage() {
       <div className="min-h-screen bg-surface flex flex-col">
         <Navbar />
         <main className="flex flex-1 items-center justify-center">
-          <div className="h-10 w-10 animate-spin rounded-full border-4 border-surface-alt border-t-primary" />
+          <Spinner label="Loading tracking…" />
         </main>
         <Footer />
       </div>
