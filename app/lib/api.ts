@@ -69,6 +69,11 @@ export const api = {
     request<Invoice | null>(`/invoices/by-request/${requestId}`),
   createInvoice: (body: CreateInvoicePayload) =>
     request<Invoice>('/invoices', { method: 'POST', body: JSON.stringify(body) }),
+  updateInvoice: (id: string, body: UpdateInvoicePayload) =>
+    request<Invoice>(`/invoices/${id}`, {
+      method: 'PATCH',
+      body: JSON.stringify(body),
+    }),
   updateInvoiceStatus: (id: string, status: 'paid' | 'unpaid') =>
     request<Invoice>(`/invoices/${id}/status`, {
       method: 'PATCH',
@@ -204,6 +209,17 @@ export interface CreateInvoicePayload {
   customerName: string;
   customerEmail?: string;
   customerWhatsapp: string;
+}
+
+export interface UpdateInvoicePayload {
+  itemPrice?: number;
+  inspectionFee?: number;
+  deliveryFee?: number;
+  dueDate?: string;
+  notes?: string;
+  customerName?: string;
+  customerEmail?: string;
+  customerWhatsapp?: string;
 }
 
 export type QuestionnaireLeadStatus = 'new' | 'contacted' | 'converted' | 'not_interested';

@@ -119,7 +119,7 @@ export function InvoiceDocumentSkeleton() {
         {/* Line items + total */}
         <div className="px-5 py-6 sm:px-8">
           <div className="space-y-5">
-            {Array.from({ length: 3 }).map((_, i) => (
+            {Array.from({ length: 2 }).map((_, i) => (
               <div key={i} className="flex items-start justify-between gap-4">
                 <div className="flex-1 space-y-2">
                   <Skeleton className="h-4 w-32" />
@@ -181,7 +181,7 @@ export function InvoiceDocument({
           <p className="max-w-2xl text-sm leading-relaxed text-copy sm:text-base">
             {isPaid
               ? 'This invoice has been paid and can now be used as your official BuyPadi receipt.'
-              : 'Review the charges for your inspection and delivery request before proceeding to payment.'}
+              : 'Review the BuyPadi service charges for your inspection and delivery request before proceeding to payment.'}
           </p>
         </div>
 
@@ -264,6 +264,27 @@ export function InvoiceDocument({
           </div>
         </div>
 
+        <div className="border-b border-surface-alt px-5 py-5 sm:px-8">
+          <div className="rounded-2xl border border-lime/25 bg-lime-light px-4 py-4">
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-wide text-primary">
+                  Order price
+                </p>
+                <p className="mt-1 max-w-2xl text-sm leading-relaxed text-primary/80">
+                  {formatNaira(invoice.itemPrice)} is the product amount for
+                  reference only. It is not included in this BuyPadi payment and
+                  should be paid directly to the seller. Contact us if this
+                  amount does not match the product you want to buy.
+                </p>
+              </div>
+              <p className="font-display text-2xl font-black text-primary">
+                {formatNaira(invoice.itemPrice)}
+              </p>
+            </div>
+          </div>
+        </div>
+
         <div className="px-5 py-6 sm:px-8">
           <table className="w-full text-sm">
             <thead>
@@ -273,17 +294,6 @@ export function InvoiceDocument({
               </tr>
             </thead>
             <tbody className="divide-y divide-surface-alt">
-              <tr>
-                <td className="py-4">
-                  <p className="font-medium text-heading">Item Price</p>
-                  <p className="text-xs text-muted">
-                    Product amount from the inspection request
-                  </p>
-                </td>
-                <td className="py-4 text-right font-semibold text-heading">
-                  {formatNaira(invoice.itemPrice)}
-                </td>
-              </tr>
               <tr>
                 <td className="py-4">
                   <p className="font-medium text-heading">Inspection Fee</p>
@@ -310,7 +320,7 @@ export function InvoiceDocument({
             <tfoot>
               <tr className="border-t-2 border-surface-alt">
                 <td className="pt-4 text-base font-black text-heading">
-                  Total
+                  Amount due
                 </td>
                 <td className="pt-4 text-right font-display text-2xl font-black text-heading">
                   {formatNaira(invoice.total)}

@@ -1,7 +1,7 @@
 // landing-page/app/padi-admin/invoices/[id]/page.tsx
 'use client';
 
-import { use, useEffect, useState, type ReactNode } from 'react';
+import { use, useEffect, useState, type FormEvent, type ReactNode } from 'react';
 import Link from 'next/link';
 import AdminNotFoundState from '@/app/components/admin/AdminNotFoundState';
 import ConfirmDialog from '@/app/components/admin/ConfirmDialog';
@@ -16,6 +16,7 @@ import {
   isNotFoundError,
   type InspectionRequest,
   type Invoice,
+  type UpdateInvoicePayload,
 } from '@/app/lib/api';
 
 type InvoiceAction = 'paid' | 'unpaid';
@@ -38,6 +39,10 @@ function formatShortDate(iso: string) {
     month: 'short',
     year: 'numeric',
   });
+}
+
+function toDateInputValue(iso: string) {
+  return new Date(iso).toISOString().slice(0, 10);
 }
 
 function isOverdue(invoice: Invoice) {
@@ -156,11 +161,6 @@ function CopyButton({
 function InvoiceDocumentPanel({ invoice }: { invoice: Invoice }) {
   const lines = [
     {
-      label: 'Item price',
-      description: 'Customer declared product amount',
-      amount: invoice.itemPrice,
-    },
-    {
       label: 'Inspection fee',
       description: 'Professional product inspection and verification',
       amount: invoice.inspectionFee,
@@ -175,6 +175,22 @@ function InvoiceDocumentPanel({ invoice }: { invoice: Invoice }) {
   return (
     <Panel title="Invoice document" eyebrow="Line items">
       <div className="px-4 py-4 sm:px-5">
+        <div className="mb-4 rounded-lg border border-lime/25 bg-lime-light px-4 py-3">
+          <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.14em] text-primary">
+                Order price
+              </p>
+              <p className="mt-1 text-xs leading-relaxed text-primary/75">
+                Informational only. Buyer pays the seller directly for the product.
+              </p>
+            </div>
+            <p className="font-display text-xl font-black text-primary">
+              {formatNaira(invoice.itemPrice)}
+            </p>
+          </div>
+        </div>
+
         <div className="overflow-hidden rounded-lg border border-surface-alt">
           <div className="grid grid-cols-[minmax(0,1fr)_9rem] bg-surface px-4 py-3 text-xs font-bold uppercase tracking-[0.12em] text-muted">
             <span>Description</span>
@@ -201,7 +217,7 @@ function InvoiceDocumentPanel({ invoice }: { invoice: Invoice }) {
           </div>
 
           <div className="grid grid-cols-[minmax(0,1fr)_9rem] gap-4 border-t border-surface-alt bg-primary px-4 py-4 text-white">
-            <p className="font-display text-base font-black">Total due</p>
+            <p className="font-display text-base font-black">Amount due</p>
             <p className="text-right font-display text-xl font-black">
               {formatNaira(invoice.total)}
             </p>
@@ -219,6 +235,198 @@ function InvoiceDocumentPanel({ invoice }: { invoice: Invoice }) {
           </div>
         )}
       </div>
+    </Panel>
+  );
+}
+
+function InvoiceEditPanel({
+  invoice,
+  busy,
+  onSave,
+}: {
+  invoice: Invoice;
+  busy: boolean;
+  onSave: (payload: UpdateInvoicePayload) => Promise<void>;
+}) {
+  const [itemPrice, setItemPrice] = useState(String(Number(invoice.itemPrice) || ''));
+  const [inspectionFee, setInspectionFee] = useState(String(Number(invoice.inspectionFee) || ''));
+  const [deliveryFee, setDeliveryFee] = useState(String(Number(invoice.deliveryFee) || ''));
+  const [dueDate, setDueDate] = useState(toDateInputValue(invoice.dueDate));
+  const [notes, setNotes] = useState(invoice.notes ?? '');
+  const [customerName, setCustomerName] = useState(invoice.customerName);
+  const [customerEmail, setCustomerEmail] = useState(invoice.customerEmail ?? '');
+  const [customerWhatsapp, setCustomerWhatsapp] = useState(invoice.customerWhatsapp);
+
+  const parsedItemPrice = Number(itemPrice) || 0;
+  const parsedInspectionFee = Number(inspectionFee) || 0;
+  const parsedDeliveryFee = Number(deliveryFee) || 0;
+  const payableTotal = parsedInspectionFee + parsedDeliveryFee;
+  const isPaid = invoice.status === 'paid';
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    if (isPaid || busy || parsedItemPrice <= 0 || payableTotal <= 0) return;
+
+    await onSave({
+      itemPrice: parsedItemPrice,
+      inspectionFee: parsedInspectionFee,
+      deliveryFee: parsedDeliveryFee,
+      dueDate: new Date(dueDate).toISOString(),
+      notes,
+      customerName: customerName.trim(),
+      customerEmail: customerEmail.trim(),
+      customerWhatsapp: customerWhatsapp.trim(),
+    });
+  }
+
+  return (
+    <Panel title="Edit invoice" eyebrow="Corrections">
+      <form onSubmit={handleSubmit} className="space-y-4 px-4 py-4 sm:px-5">
+        {isPaid ? (
+          <div className="rounded-lg bg-surface px-4 py-3 text-sm leading-relaxed text-muted">
+            This invoice is paid, so the receipt details are locked. If there is
+            a reconciliation issue, mark the invoice as unpaid first, update the
+            details, then confirm payment again after review.
+          </div>
+        ) : (
+          <div className="rounded-lg bg-amber-50 px-4 py-3 text-xs font-medium leading-relaxed text-amber-800">
+            Updating this invoice will invalidate any previously generated
+            payment ticket. The public invoice link stays the same, but the
+            customer should open it again before paying.
+          </div>
+        )}
+
+        <div className="grid gap-3 sm:grid-cols-3">
+          <label className="text-xs font-semibold uppercase tracking-wide text-muted">
+            Order price
+            <input
+              type="number"
+              min="0"
+              value={itemPrice}
+              onChange={(event) => setItemPrice(event.target.value)}
+              disabled={isPaid || busy}
+              className="mt-1 min-h-11 w-full rounded-lg border border-surface-alt bg-surface px-3 text-sm font-medium normal-case tracking-normal text-heading focus:border-lime focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+            />
+            <span className="mt-1 block text-[11px] font-medium normal-case tracking-normal text-muted">
+              Reference only, excluded from amount due.
+            </span>
+          </label>
+
+          <label className="text-xs font-semibold uppercase tracking-wide text-muted">
+            Inspection fee
+            <input
+              type="number"
+              min="0"
+              value={inspectionFee}
+              onChange={(event) => setInspectionFee(event.target.value)}
+              disabled={isPaid || busy}
+              className="mt-1 min-h-11 w-full rounded-lg border border-surface-alt bg-surface px-3 text-sm font-medium normal-case tracking-normal text-heading focus:border-lime focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+            />
+          </label>
+
+          <label className="text-xs font-semibold uppercase tracking-wide text-muted">
+            Delivery fee
+            <input
+              type="number"
+              min="0"
+              value={deliveryFee}
+              onChange={(event) => setDeliveryFee(event.target.value)}
+              disabled={isPaid || busy}
+              className="mt-1 min-h-11 w-full rounded-lg border border-surface-alt bg-surface px-3 text-sm font-medium normal-case tracking-normal text-heading focus:border-lime focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+            />
+          </label>
+        </div>
+
+        <div className="rounded-lg bg-primary/5 px-4 py-3 text-sm">
+          <div className="flex justify-between gap-3 text-muted">
+            <span>Order price</span>
+            <span>{formatNaira(parsedItemPrice)}</span>
+          </div>
+          <p className="mt-1 border-b border-primary/10 pb-2 text-[11px] font-medium text-muted">
+            Informational only. The buyer pays this directly to the seller.
+          </p>
+          <div className="mt-2 flex justify-between gap-3 text-muted">
+            <span>Inspection</span>
+            <span>{formatNaira(parsedInspectionFee)}</span>
+          </div>
+          <div className="mt-1 flex justify-between gap-3 text-muted">
+            <span>Delivery</span>
+            <span>{formatNaira(parsedDeliveryFee)}</span>
+          </div>
+          <div className="mt-2 flex justify-between gap-3 border-t border-primary/10 pt-2 font-bold text-heading">
+            <span>Amount due</span>
+            <span>{formatNaira(payableTotal)}</span>
+          </div>
+        </div>
+
+        <div className="grid gap-3 sm:grid-cols-2">
+          <label className="text-xs font-semibold uppercase tracking-wide text-muted">
+            Customer name
+            <input
+              type="text"
+              value={customerName}
+              onChange={(event) => setCustomerName(event.target.value)}
+              disabled={isPaid || busy}
+              className="mt-1 min-h-11 w-full rounded-lg border border-surface-alt bg-surface px-3 text-sm font-medium normal-case tracking-normal text-heading focus:border-lime focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+            />
+          </label>
+
+          <label className="text-xs font-semibold uppercase tracking-wide text-muted">
+            WhatsApp
+            <input
+              type="text"
+              value={customerWhatsapp}
+              onChange={(event) => setCustomerWhatsapp(event.target.value)}
+              disabled={isPaid || busy}
+              className="mt-1 min-h-11 w-full rounded-lg border border-surface-alt bg-surface px-3 text-sm font-medium normal-case tracking-normal text-heading focus:border-lime focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+            />
+          </label>
+
+          <label className="text-xs font-semibold uppercase tracking-wide text-muted">
+            Email
+            <input
+              type="email"
+              value={customerEmail}
+              onChange={(event) => setCustomerEmail(event.target.value)}
+              disabled={isPaid || busy}
+              className="mt-1 min-h-11 w-full rounded-lg border border-surface-alt bg-surface px-3 text-sm font-medium normal-case tracking-normal text-heading focus:border-lime focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+            />
+          </label>
+
+          <label className="text-xs font-semibold uppercase tracking-wide text-muted">
+            Due date
+            <input
+              type="date"
+              value={dueDate}
+              onChange={(event) => setDueDate(event.target.value)}
+              disabled={isPaid || busy}
+              className="mt-1 min-h-11 w-full rounded-lg border border-surface-alt bg-surface px-3 text-sm font-medium normal-case tracking-normal text-heading focus:border-lime focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+            />
+          </label>
+        </div>
+
+        <label className="block text-xs font-semibold uppercase tracking-wide text-muted">
+          Notes
+          <textarea
+            rows={3}
+            value={notes}
+            onChange={(event) => setNotes(event.target.value)}
+            disabled={isPaid || busy}
+            className="mt-1 w-full resize-none rounded-lg border border-surface-alt bg-surface px-3 py-2 text-sm font-medium normal-case tracking-normal text-heading placeholder:font-normal placeholder:text-subtle focus:border-lime focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+          />
+        </label>
+
+        <div className="flex flex-col gap-2 sm:flex-row sm:justify-end">
+          <button
+            type="submit"
+            disabled={isPaid || busy || parsedItemPrice <= 0 || payableTotal <= 0}
+            className="inline-flex min-h-11 items-center justify-center rounded-lg bg-primary px-5 text-sm font-bold text-white transition-colors hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-40"
+          >
+            {busy ? 'Saving invoice...' : 'Save invoice changes'}
+          </button>
+        </div>
+      </form>
     </Panel>
   );
 }
@@ -534,6 +742,7 @@ export default function AdminInvoicePage({
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [confirm, setConfirm] = useState<{ action: InvoiceAction } | null>(null);
   const [saving, setSaving] = useState(false);
+  const [savingInvoiceDetails, setSavingInvoiceDetails] = useState(false);
   const [copiedLabel, setCopiedLabel] = useState<string | null>(null);
 
   useEffect(() => {
@@ -610,6 +819,24 @@ export default function AdminInvoicePage({
       );
     } finally {
       setSaving(false);
+    }
+  }
+
+  async function handleUpdateInvoice(payload: UpdateInvoicePayload) {
+    if (!invoice) return;
+
+    setMutationError(null);
+    setSavingInvoiceDetails(true);
+    try {
+      const updated = await api.updateInvoice(invoice.id, payload);
+      setInvoice(updated);
+      flashSuccess('Invoice details updated. Any old payment ticket has been invalidated.');
+    } catch (err: unknown) {
+      setMutationError(
+        getErrorMessage(err, 'Failed to update invoice details. Please try again.'),
+      );
+    } finally {
+      setSavingInvoiceDetails(false);
     }
   }
 
@@ -708,7 +935,7 @@ export default function AdminInvoicePage({
               )}
             </div>
             <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
-              Payment record for order {invoice.orderId}. Total{' '}
+              Payment record for order {invoice.orderId}. Amount due{' '}
               <span className="font-semibold text-heading">
                 {formatNaira(invoice.total)}
               </span>
@@ -748,6 +975,12 @@ export default function AdminInvoicePage({
         <div className="grid gap-6 xl:grid-cols-[minmax(0,1.35fr)_minmax(22rem,0.75fr)]">
           <div className="space-y-6">
             <InvoiceDocumentPanel invoice={invoice} />
+            <InvoiceEditPanel
+              key={`${invoice.id}-${invoice.updatedAt}`}
+              invoice={invoice}
+              busy={savingInvoiceDetails}
+              onSave={handleUpdateInvoice}
+            />
             <CustomerPanel invoice={invoice} />
             <RelatedRequestPanel invoice={invoice} request={request} />
           </div>

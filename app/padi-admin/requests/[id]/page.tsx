@@ -409,7 +409,7 @@ function InvoicePanel({
   const parsedItemPrice = Number(itemPrice) || 0;
   const parsedInspectionFee = Number(inspectionFee) || 0;
   const parsedDeliveryFee = Number(deliveryFee) || 0;
-  const total = parsedItemPrice + parsedInspectionFee + parsedDeliveryFee;
+  const payableTotal = parsedInspectionFee + parsedDeliveryFee;
 
   return (
     <Panel title="Invoice and payment" eyebrow="Payment gate">
@@ -422,11 +422,11 @@ function InvoicePanel({
                 <span className="font-semibold text-heading">{invoice.invoiceNumber}</span>
               </div>
               <div className="flex items-center justify-between gap-3">
-                <span className="text-muted">Item price</span>
+                <span className="text-muted">Order price</span>
                 <span className="font-semibold text-heading">{formatNaira(invoice.itemPrice)}</span>
               </div>
               <div className="flex items-center justify-between gap-3">
-                <span className="text-muted">Total</span>
+                <span className="text-muted">Amount due</span>
                 <span className="font-semibold text-heading">{formatNaira(invoice.total)}</span>
               </div>
               <div className="flex items-center justify-between gap-3">
@@ -454,7 +454,7 @@ function InvoicePanel({
         ) : creatingInvoice ? (
           <div className="space-y-3">
             <label className="block text-xs font-semibold uppercase tracking-wide text-muted">
-              Item price
+              Order price
               <input
                 type="number"
                 min="0"
@@ -463,6 +463,9 @@ function InvoicePanel({
                 placeholder="200000"
                 className="mt-1 min-h-11 w-full rounded-lg border border-surface-alt bg-surface px-3 text-sm font-medium normal-case tracking-normal text-heading focus:border-lime focus:outline-none"
               />
+              <span className="mt-1 block text-[11px] font-medium normal-case tracking-normal text-muted">
+                For reference only. This is paid directly to the seller, not to BuyPadi.
+              </span>
             </label>
 
             <div className="grid gap-3 sm:grid-cols-2">
@@ -513,10 +516,13 @@ function InvoicePanel({
 
             <div className="rounded-lg bg-primary/5 px-4 py-3 text-sm">
               <div className="flex justify-between gap-3 text-muted">
-                <span>Item price</span>
+                <span>Order price</span>
                 <span>{formatNaira(parsedItemPrice)}</span>
               </div>
-              <div className="flex justify-between gap-3 text-muted">
+              <p className="mt-1 border-b border-primary/10 pb-2 text-[11px] font-medium text-muted">
+                Informational only. Excluded from the payable invoice total.
+              </p>
+              <div className="mt-2 flex justify-between gap-3 text-muted">
                 <span>Inspection</span>
                 <span>{formatNaira(parsedInspectionFee)}</span>
               </div>
@@ -525,8 +531,8 @@ function InvoicePanel({
                 <span>{formatNaira(parsedDeliveryFee)}</span>
               </div>
               <div className="mt-2 flex justify-between gap-3 border-t border-primary/10 pt-2 font-bold text-heading">
-                <span>Total</span>
-                <span>{formatNaira(total)}</span>
+                <span>Amount due</span>
+                <span>{formatNaira(payableTotal)}</span>
               </div>
             </div>
 
@@ -534,7 +540,7 @@ function InvoicePanel({
               <button
                 type="button"
                 onClick={onSubmit}
-                disabled={parsedItemPrice <= 0 || total <= 0 || submittingInvoice}
+                disabled={parsedItemPrice <= 0 || payableTotal <= 0 || submittingInvoice}
                 className="inline-flex min-h-11 items-center justify-center rounded-lg bg-primary px-4 text-sm font-bold text-white transition-colors hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-40"
               >
                 {submittingInvoice ? 'Creating invoice...' : 'Create invoice'}
@@ -777,7 +783,7 @@ export default function RequestDetailPage({
     const parsedInspectionFee = Number(inspectionFee) || 0;
     const parsedDeliveryFee = Number(deliveryFee) || 0;
 
-    if (parsedItemPrice + parsedInspectionFee + parsedDeliveryFee <= 0) return;
+    if (parsedItemPrice <= 0 || parsedInspectionFee + parsedDeliveryFee <= 0) return;
 
     setMutationError(null);
     setSubmittingInvoice(true);
