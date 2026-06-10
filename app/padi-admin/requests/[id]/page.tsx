@@ -464,7 +464,7 @@ function InvoicePanel({
                 className="mt-1 min-h-11 w-full rounded-lg border border-surface-alt bg-surface px-3 text-sm font-medium normal-case tracking-normal text-heading focus:border-lime focus:outline-none"
               />
               <span className="mt-1 block text-[11px] font-medium normal-case tracking-normal text-muted">
-                For reference only. This is paid directly to the seller, not to BuyPadi.
+                For reference only.
               </span>
             </label>
 
